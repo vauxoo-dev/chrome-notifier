@@ -1,7 +1,7 @@
 $(document).ready(function(){
     chrome.storage.sync.get('uid', function(items){
         if (items.uid){
-            $('#oex_main').hide('slow');
+            $('#oex_main').hide();
             $('#oex_timeline').show('slow');
             
         }
@@ -15,7 +15,8 @@ function connect(e){
     var user = document.getElementById('login').value;
     var passwd = document.getElementById('password').value;
     var server = document.getElementById('server').value;
-    var request = new XmlRpcRequest(server+'/xmlrpc/common','login');
+    var request = new XmlRpcRequest(server+ '/xmlrpc/common','login');
+    console.log(server);
     request.addParam(dbname);
     request.addParam(user);
     request.addParam(passwd);
@@ -24,7 +25,8 @@ function connect(e){
     uid = parseInt(uid);
     if (typeof uid === 'number' && !isNaN(uid)) {
         chrome.storage.sync.set({'uid': uid, 'dbname':dbname,'user':user,'passwd':passwd,'server':server }, function(){
-            
+        $('#oex_main').hide('slow');
+        $('#oex_timeline').show('slow');
         });
     } else {
         alert('Incorrect Login, check your data again');
@@ -51,5 +53,5 @@ document.addEventListener('DOMContentLoaded', function (){
 });
 
 document.addEventListener('DOMContentLoaded', function (){
-    document.querySelector('button').addEventListener('click', connect)
+    document.getElementById('oe_login').addEventListener('click', connect)
 });
