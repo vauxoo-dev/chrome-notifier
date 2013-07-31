@@ -1,4 +1,4 @@
-#main {
+#oex_main {
     border: solid 1px #333333;
     background: #1e1e1e;
     background: rgba(30, 30, 30, 0.94);
@@ -68,7 +68,7 @@ p{
     border-color: gray;
     font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;""
 }
-    #timeline {
+    #oex_timeline {
    shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
    padding: 0;
    display: block;

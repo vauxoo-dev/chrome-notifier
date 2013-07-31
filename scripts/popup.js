@@ -1,11 +1,8 @@
 $(document).ready(function(){
     chrome.storage.sync.get('uid', function(items){
         if (items.uid){
-            $('#main').hide();
-            $('#timeline').show();
-        } else {
-            $('#timeline').hide();
-            $('#main').show();
+            $('#oex_main').hide('slow');
+            $('#oex_timeline').show('slow');
         }
     });
 });
@@ -25,13 +22,31 @@ function connect(e){
     uid = parseInt(uid);
     if (typeof uid === 'number' && !isNaN(uid)) {
         chrome.storage.sync.set({'uid': uid, 'dbname':dbname,'user':user,'passwd':passwd,'server':server }, function(){
-            alert('saved');
+            
         });
     } else {
         alert('Incorrect Login, check your data again');
     }
     
 }
+function settings(e){
+    $('#oex_main').show('slow');
+    $('#oex_timeline').hide('slow');
+    chrome.storage.sync.get(['uid','dbname','user','passwd','server'], function(items){
+        if (items.dbname) {
+            console.log(items.dbname);
+            document.getElementById('database').value = items.dbname;
+            document.getElementById('login').value = items.user;
+            document.getElementById('password').value = items.passwd;
+            document.getElementById('server').value = items.server;
+        }
+    });
+
+}
+
+document.addEventListener('DOMContentLoaded', function (){
+    document.getElementById('settings').addEventListener('click', settings)
+});
 
 document.addEventListener('DOMContentLoaded', function (){
     document.querySelector('button').addEventListener('click', connect)
