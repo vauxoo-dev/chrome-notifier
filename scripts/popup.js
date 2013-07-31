@@ -3,17 +3,36 @@ $(document).ready(function(){
         if (items.uid){
             $('#oex_main').hide();
             $('#oex_timeline').show('slow');
-            var data_request = new XmlRpcRequest(server+'/xmlrpc/','execute');
+            var ids_request = new XmlRpcRequest(items.server+'/xmlrpc/object','execute');
             var args = [['user_id','=',items.uid]];
-            data_request.addParam(items.dbname);
-            data_request.addParam(items.uid);
-            data_request.addParam(items.passwd);
-            data_request.addParam('project.task');
-            data_request.addParam('search');
-            data_request.addParam(args);
-            var data_response = data_request.send();
-            var tasks = response.parseXML();
-            alert(tasks);
+            ids_request.addParam(items.dbname);
+            ids_request.addParam(items.uid);
+            ids_request.addParam(items.passwd);
+            ids_request.addParam('project.task');
+            ids_request.addParam('search');
+            ids_request.addParam(args);
+            var ids_response = ids_request.send();
+            var ids = ids_response.parseXML();
+            for (var id in ids){
+                console.log(ids[id]);
+                var data_request = new XmlRpcRequest(items.server+'/xmlrpc/object','execute');
+                data_request.addParam(items.dbname);
+                data_request.addParam(items.uid);
+                data_request.addParam(items.passwd);
+                data_request.addParam('project.task');
+                data_request.addParam('read');
+                data_request.addParam(ids[id]);
+                data_request.addParam(['name','id','user_id']);
+                var data_response = data_request.send();
+                var tasks = data_response.parseXML();
+                console.log(tasks);
+                if (tasks.faultCode){
+                    alert(tasks.faultCode, tasks.faultString);
+                } else {
+                    console.log(tasks);
+                }
+            }
+
         }
 
     });
