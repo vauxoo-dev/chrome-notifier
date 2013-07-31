@@ -3,7 +3,9 @@ $(document).ready(function(){
         if (items.uid){
             $('#oex_main').hide('slow');
             $('#oex_timeline').show('slow');
+            
         }
+
     });
 });
 
@@ -13,7 +15,7 @@ function connect(e){
     var user = document.getElementById('login').value;
     var passwd = document.getElementById('password').value;
     var server = document.getElementById('server').value;
-    var request = new XmlRpcRequest(server,'login');
+    var request = new XmlRpcRequest(server+'/xmlrpc/common','login');
     request.addParam(dbname);
     request.addParam(user);
     request.addParam(passwd);
