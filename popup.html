@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <title>OpenERP Notifier</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css" media=screen>
+  </head>
+  <body>
+      <script src="scripts/jquery-2.0.3.min.js" type="text/javascript"></script>
+      <script src="scripts/mimic.js" type="text/javascript"></script>
+      <script src="scripts/popup.js" type="text/javascript"></script>
+        <div id="main">
+            <form>
+                <div><p>Server</p></div>
+                    <div>
+                        <input id="server" name="Server" type="text" value="http://localhost:8069/xmlrpc/common">
+                    </div>
+                <div><p>Database</p></div>
+                    <div>
+                        <input id="database"  name="Database" type="text" value="oalca_project">
+                    </div>
+                <div><p>User</p></div>
+                    <div>
+                        <input id="login" name="login" type="text" value="admin">
+                    </div>
+                    <div><p>Password</p></div>
+                        <input id="password" name="password" type="password" value="admin">
+                        <button id="oe_login" name="submit" />
+                            <span>Login</span>
+                        </button>
+                    </div>
+            </form>
+        </div>
+
+        <div id="timeline">
+            <div id="logo">
+                <img src="images/logo.png">
+                <button type="button" id="settings">Settings</button>
+            </div>
+        </div>
+  </body>
+</html>
+

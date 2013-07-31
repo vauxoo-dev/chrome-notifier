@@ -1,0 +1,79 @@
+    #main {
+        border: solid 1px #333333;
+        background: #1e1e1e;
+        background: rgba(30, 30, 30, 0.94);
+        padding: 22px 32px;
+        color: #eeeeee;
+        text-align: left;
+        -moz-border-radius: 8px;
+        -webkit-border-radius: 8px;
+        border-radius: 8px;
+        -moz-box-shadow: 0 0 18px rgba(0, 0, 0, 0.9);
+        -webkit-box-shadow: 0 0 18px rgba(0, 0, 0, 0.9);
+        box-shadow: 0 0 18px rgba(0, 0, 0, 0.9);
+    }
+    button {
+  cursor: pointer;
+  padding: 6px 16px;
+  border: 1px solid #222222;
+  color: white;
+  margin: 0;
+  background-color: #8c1313;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#b92020), to(#600606));
+  background-image: -webkit-linear-gradient(top, #b92020, #600606);
+  background-image: -moz-linear-gradient(top, #b92020, #600606);
+  background-image: -ms-linear-gradient(top, #b92020, #600606);
+  background-image: -o-linear-gradient(top, #b92020, #600606);
+  background-image: linear-gradient(to bottom, #b92020, #600606);
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(155, 155, 155, 0.4) inset;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(155, 155, 155, 0.4) inset;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(155, 155, 155, 0.4) inset;
+}
+
+input{
+  width: 252px;
+  font-family: "Lucida Grande", Helvetica, Verdana, Arial;
+  border: 1px solid #999999;
+  background: whitesmoke;
+  -moz-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.4);
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  margin-bottom: 9px;
+  padding: 5px 6px;
+}
+p{
+    border-collapse: collapse;
+    border-spacing: 0px;
+    font-size: 14px;
+    color: #eeeeee;
+    text-align: -webkit-match-parent;
+    display: list-item;
+    padding: 0 0 4px 0;
+    list-style-type: none;
+    margin: 0;
+    border-spacing: 2px;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+    border-color: gray;
+    font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;""
+}
+    #timeline {
+   shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+   padding: 0;
+   display: block;
+   width: 440px;
+   margin: 0;
+   overflow-x: hidden;
+}
+   #logo {
+   z-index:100;
+   cursor:pointer;
+   border-bottom:1px solid #ccc;
+   padding:10px;
+   }
+   
