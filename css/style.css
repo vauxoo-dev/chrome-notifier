@@ -1,3 +1,13 @@
+.oex_openerp {
+    padding: 0;
+    margin: 0;
+    font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
+    color: #4c4c4c;
+    font-size: 13px;
+    background: white;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+   }
+  
 #oex_main {
     border: solid 1px #333333;
     background: #1e1e1e;
@@ -66,15 +76,19 @@ p{
     border-spacing: 2px;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
     border-color: gray;
-    font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;""
+    font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
 }
-    #oex_timeline {
-   shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
-   padding: 0;
-   display: block;
-   width: 440px;
-   margin: 0;
-   overflow-x: hidden;
+#oex_timeline {
+    shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+    padding: 0;
+    display: block;
+    width: 440px;
+    background: #f0eeee;
+    border-left: 1px solid #f0f8f8;
+    border-right: 1px solid #b9b9b9;
+    
+    margin: 0;
+    overflow-x: hidden;
 }
    #logo {
    z-index:100;
@@ -83,3 +97,55 @@ p{
    padding:10px;
    }
    
+.oex_card {
+    margin-bottom: 4px;
+    position: relative;
+    display: block;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    border-bottom-color: rgba(0, 0, 0, 0.3);
+    padding: 5px;
+    display: block;
+    -webkit-transition: -webkit-transform, -webkit-box-shadow, border 200ms linear;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
+    color: #4c4c4c;
+    font-size: 15px;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+ }
+.oex_openerp .oex_kanban_view .oex_content{
+    aword-wrap: break-word;
+   } 
+.oex_openerp .oex_kanban_view { 
+    background: white; 
+    height: inherit; 
+ }
+ .oex_text_red{
+    color: #a61300;
+    font-weight: bold;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
+    font-size: 13px;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+.oex_text {
+    color: #4c4c4c;
+    font-weight: light;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
+    font-size: 13px;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+
+}
+.oex_div_text {
+        height:26px;
+        display:block;
+        padding:10px;
+        overflow:hidden;
+}

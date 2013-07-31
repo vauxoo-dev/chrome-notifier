@@ -14,7 +14,6 @@ $(document).ready(function(){
             var ids_response = ids_request.send();
             var ids = ids_response.parseXML();
             for (var id in ids){
-                console.log(ids[id]);
                 var data_request = new XmlRpcRequest(items.server+'/xmlrpc/object','execute');
                 data_request.addParam(items.dbname);
                 data_request.addParam(items.uid);
@@ -22,15 +21,29 @@ $(document).ready(function(){
                 data_request.addParam('project.task');
                 data_request.addParam('read');
                 data_request.addParam(ids[id]);
-                data_request.addParam(['name','id','user_id']);
+                data_request.addParam(['name','id','user_id','date_deadline','description']);
                 var data_response = data_request.send();
                 var tasks = data_response.parseXML();
-                console.log(tasks);
                 if (tasks.faultCode){
                     alert(tasks.faultCode, tasks.faultString);
                 } else {
-                    console.log(tasks);
+                    $('#oex_timeline').append(
+                            '<div class="oex_card">'+
+                                '<div class="oex_content">'+
+                                    '<b>'+tasks.name+'</b>'+
+                                '</div>'+
+                                '<div>'+
+                                '<div class="oex_div_text">'+
+                                    '<p class="oex_text">'+tasks.description+'</p>'+
+                                '</div>'+
+                                    '<span>'+
+                                        '<i class="oex_text_red">'+tasks.date_deadline+'<i>'+
+                                    '<span>'+
+                                '</div>'+
+
+                            '</div>');
                 }
+
             }
 
         }
