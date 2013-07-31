@@ -40,17 +40,15 @@ $(document).ready(function(){
                                         '<i class="oex_text_red">'+tasks.date_deadline+'<i>'+
                                     '<span>'+
                                 '</div>'+
-
                             '</div>');
                 }
-
             }
-
         }
-
     });
 });
-
+$('.oex_timeline').ready(function() {
+    $('#oex_loading').hide('slow');
+});
 
 function connect(e){
     var dbname = document.getElementById('database').value;
