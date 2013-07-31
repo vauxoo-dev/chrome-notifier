@@ -4,7 +4,6 @@
   "name": "OpenERP Notifications",
   "description": "This extension shows number of notifications that certain user has on OpenERP",
   "version": "1.0",
-
   "browser_action": {
     "default_icon": "images/icon.png",
     "default_popup": "popup.html"
@@ -18,7 +17,12 @@
   "content_scripts":[
   {
   "matches": ["<all_urls>"],
-  "js": ["scripts/jquery-2.0.3.min.js", "scripts/popup.js"]
+  "js": [
+         "scripts/underscore-min.js",
+         "scripts/backbone-min.js",
+         "scripts/jquery-2.0.3.min.js",
+         "scripts/popup.js"
+         ]
   }
   ]
 }
