@@ -1,9 +1,19 @@
 $(document).ready(function(){
-    chrome.storage.sync.get('uid', function(items){
+    chrome.storage.sync.get(['uid','dbname','user','passwd','server'], function(items){
         if (items.uid){
             $('#oex_main').hide();
             $('#oex_timeline').show('slow');
-            
+            var data_request = new XmlRpcRequest(server+'/xmlrpc/','execute');
+            var args = [['user_id','=',items.uid]];
+            data_request.addParam(items.dbname);
+            data_request.addParam(items.uid);
+            data_request.addParam(items.passwd);
+            data_request.addParam('project.task');
+            data_request.addParam('search');
+            data_request.addParam(args);
+            var data_response = data_request.send();
+            var tasks = response.parseXML();
+            alert(tasks);
         }
 
     });
