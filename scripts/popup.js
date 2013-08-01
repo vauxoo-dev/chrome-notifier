@@ -59,6 +59,8 @@ $(document).ready(function(){
                                         'Messages'+
                                     '</span></a>'+
                                 '</div>'+
+                                '<div class oex_messages id="'+tasks.id+'">'+
+                                '</div>'+
                             '</div>');
                 }
             }
@@ -110,7 +112,22 @@ function settings(e){
 function message_clicked(task_id){
     chrome.storage.sync.get(['uid','dbname','user','passwd','server'], function(items){
         if (items.uid){
-
+        var args = [['task_id.id','=',task_id]];
+        var model = 'project.task.work';
+        var ids = oe_search(items, args, model);
+        var fields = ['name','id','user_id','date','hours'];
+        for (var id in ids){
+                var works = oe_read(items, model, ids[id], fields);
+                if (works.faultCode){
+                    alert(works.faultCode, works.faultString);
+                } else {
+                    var elem = '#'+task_id+'.oex_messages';
+                    console.log(elem);
+                    $(elem).append(
+                        '<div><p>'+works.name+'</p></div>'
+                    );    
+                }
+            }
         }
     });
 }
