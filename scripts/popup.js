@@ -52,14 +52,31 @@ $(document).ready(function(){
                                     '<span>'+
                                         '<i class="oex_text_red">'+tasks.date_deadline+'<i>'+
                                     '<span>'+
-                                    '<a href="#"><span class="oex_openerp_bold_tws">'+
+                                    '<a href="#"><span span id="'+tasks.id+'" class="oex_openerp_bold_tws">'+
                                         'Task Works'+
                                     '</span></a>'+
                                     '<a href="#"><span id="'+tasks.id+'"class=oex_openerp_bold_messages>'+
                                         'Messages'+
                                     '</span></a>'+
                                 '</div>'+
-                                '<div class oex_messages id="'+tasks.id+'">'+
+                                '<div class="oex_tws" id="'+tasks.id+'">'+
+				                '<table class="oex_list_content" id="'+tasks.id+'">'+
+                                    '<thead>'+
+                                    '<tr id="'+tasks.id+'" class="oex_list_header_columns">'+
+                                        '<th><div>'+
+                                            'Task Work'+
+                                        '</div></th>'+
+                                        '<th><div>'+
+                                            'Time Spent'+
+                                        '</div></th>'+
+                                        '<th><div>'+
+                                            'Date'+
+                                        '</div></th>'+
+                                    '</tr>'+
+                                    '</thead>'+
+					                '<tbody id="'+tasks.id+'" class="oex_tbody">'+
+					                '</tbody>'+
+				                '</table>'+
                                 '</div>'+
                             '</div>');
                 }
@@ -109,7 +126,7 @@ function settings(e){
     });
 
 }
-function message_clicked(task_id){
+function tw_clicked(task_id){
     chrome.storage.sync.get(['uid','dbname','user','passwd','server'], function(items){
         if (items.uid){
         var args = [['task_id.id','=',task_id]];
@@ -121,28 +138,34 @@ function message_clicked(task_id){
                 if (works.faultCode){
                     alert(works.faultCode, works.faultString);
                 } else {
-                    var elem = '#'+task_id+'.oex_messages';
+                    var elem = '#'+task_id+'.oex_tbody';
                     console.log(elem);
                     $(elem).append(
-                        '<div><p>'+works.name+'</p></div>'
+					    '<tr id="'+works.id+'" class="oex_tr">'+
+						    '<td class="oex_list_field_cell">'+works.name+'</td>'+
+						    '<td class="oex_list_field_cell">'+works.hours+'</td>'+
+						    '<td class="oex_list_field_cell">'+works.date+'</td>'+
+					    '</tr>'
                     );    
                 }
             }
+        var h = $('#'+task_id+'.oex_card')[0].scrollHeight;
+        $('#'+task_id+'.oex_card').animate({'height':h});
+        $('#'+task_id+'.oex_list_content').css({opacity: 0.0, visibility:'visible'}).animate({opacity:1.0});
+
         }
     });
 }
 
 function addEventClick(){
-var messages = $('.oex_openerp_bold_messages');
-messages.each(function (a, span_obj) {
-    console.log("vaina "+ a, span_obj);
-    $span_element = $(span_obj);
-    console.log('span'+ $span_element.attr('id'));
-    var task_id = $span_element.attr('id');
-    $span_element.click(function(){
-        message_clicked(task_id);
+    var tws = $('.oex_openerp_bold_tws');
+    tws.each(function (a, span_obj) {
+        $span_element = $(span_obj);
+        var task_id = $span_element.attr('id');
+        $span_element.click(function(){
+            tw_clicked(task_id);
+            });
         });
-    });
 }
 document.addEventListener('DOMContentLoaded', function (){
     document.getElementById('settings').addEventListener('click', settings)

@@ -115,6 +115,7 @@ p{
     color: #4c4c4c;
     font-size: 15px;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+    overflow:hidden;
  }
 .oex_card:hover{
     border: 1px solid #7c7bad;
@@ -244,3 +245,57 @@ p{
 a {
 text-decoration: none;
 }
+
+.oex_tws {
+background: white;
+min-height: 0px;
+padding: 16px;
+cursor: auto;
+overflow-x: auto;
+text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+border-color: gray;
+border-collapse: collapse;
+border-spacing: 0px;
+text-align: left;
+}
+.oex_list_content {
+   visibility: hidden;
+    width: 100%;
+    cursor: auto;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+    border-color: gray;
+    border-spacing: 2px;
+    border-spacing: 0px;
+    text-align: left;
+    zoom: 1;
+    font-size: 13px;
+    font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
+    color: #404040;
+    display: table;
+    border-spacing: 2px;
+    border-color: gray;
+    padding: 0;
+    border-collapse: collapse;
+}
+.oex_list_header_columns {
+   border-color: gray;
+   font-weight: bold;
+   border-collapse: collapse;
+   border-spacing: 2px;
+   color: #404040;
+   font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
+   font-size: 13px;
+   zoom: 1;
+   font-size: 13px;
+   text-align: left;
+   border-spacing: 2px;
+   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+   cursor: auto;
+   background-color: #dfdfdf;
+   border-style:solid;
+   border-bottom-width:1px;
+   border-right-width:0px;
+   border-left-width:0px;
+   border-top-width:0px;
+
+   }
