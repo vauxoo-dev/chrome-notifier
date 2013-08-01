@@ -1,9 +1,9 @@
-function oe_search(uid, dbname, user, passwd, server, args, model){
-    var request = new XmlRpcRequest(server+'/xmlrpc/object','execute');
+function oe_search(items, args, model){
+    var request = new XmlRpcRequest(items.server+'/xmlrpc/object','execute');
     var ids = [];
-    request.addParam(dbname);
-    request.addParam(uid);
-    request.addParam(passwd);
+    request.addParam(items.dbname);
+    request.addParam(items.uid);
+    request.addParam(items.passwd);
     request.addParam(model);
     request.addParam('search');
     request.addParam(args);
@@ -12,6 +12,19 @@ function oe_search(uid, dbname, user, passwd, server, args, model){
     return(ids);
 }
 
+function oe_read(items, model, record_id, fields){
+    var request = new XmlRpcRequest(items.server+'/xmlrpc/object','execute');
+    request.addParam(items.dbname);
+    request.addParam(items.uid);
+    request.addParam(items.passwd);
+    request.addParam(model);
+    request.addParam('read');
+    request.addParam(record_id);
+    request.addParam(fields);
+    var response = request.send();
+    var oe_object = response.parseXML();
+    return(oe_object);
+}
 $(document).ready(function(){
     chrome.storage.sync.get(['uid','dbname','user','passwd','server'], function(items){
         if (items.uid){
@@ -19,18 +32,10 @@ $(document).ready(function(){
             $('#oex_timeline').show('slow');
             var args = [['user_id','=',items.uid]];
             var model = 'project.task';
-            var ids = oe_search(items.uid, items.dbname, items.user, items.passwd, items.server, args, model);
+            var ids = oe_search(items, args, model);
+            var fields = ['name','id','user_id','date_deadline','description'];
             for (var id in ids){
-                var data_request = new XmlRpcRequest(items.server+'/xmlrpc/object','execute');
-                data_request.addParam(items.dbname);
-                data_request.addParam(items.uid);
-                data_request.addParam(items.passwd);
-                data_request.addParam('project.task');
-                data_request.addParam('read');
-                data_request.addParam(ids[id]);
-                data_request.addParam(['name','id','user_id','date_deadline','description']);
-                var data_response = data_request.send();
-                var tasks = data_response.parseXML();
+                var tasks = oe_read(items, model, ids[id], fields);
                 if (tasks.faultCode){
                     alert(tasks.faultCode, tasks.faultString);
                 } else {
