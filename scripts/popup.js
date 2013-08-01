@@ -1,18 +1,25 @@
+function oe_search(uid, dbname, user, passwd, server, args, model){
+    var request = new XmlRpcRequest(server+'/xmlrpc/object','execute');
+    var ids = [];
+    request.addParam(dbname);
+    request.addParam(uid);
+    request.addParam(passwd);
+    request.addParam(model);
+    request.addParam('search');
+    request.addParam(args);
+    var response = request.send();
+    ids = response.parseXML();
+    return(ids);
+}
+
 $(document).ready(function(){
     chrome.storage.sync.get(['uid','dbname','user','passwd','server'], function(items){
         if (items.uid){
             $('#oex_main').hide();
             $('#oex_timeline').show('slow');
-            var ids_request = new XmlRpcRequest(items.server+'/xmlrpc/object','execute');
             var args = [['user_id','=',items.uid]];
-            ids_request.addParam(items.dbname);
-            ids_request.addParam(items.uid);
-            ids_request.addParam(items.passwd);
-            ids_request.addParam('project.task');
-            ids_request.addParam('search');
-            ids_request.addParam(args);
-            var ids_response = ids_request.send();
-            var ids = ids_response.parseXML();
+            var model = 'project.task';
+            var ids = oe_search(items.uid, items.dbname, items.user, items.passwd, items.server, args, model);
             for (var id in ids){
                 var data_request = new XmlRpcRequest(items.server+'/xmlrpc/object','execute');
                 data_request.addParam(items.dbname);
@@ -96,7 +103,11 @@ function settings(e){
 
 }
 function message_clicked(task_id){
-    alert(task_id);
+    chrome.storage.sync.get(['uid','dbname','user','passwd','server'], function(items){
+        if (items.uid){
+
+        }
+    });
 }
 
 function addEventClick(){
