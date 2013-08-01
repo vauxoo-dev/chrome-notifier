@@ -116,6 +116,13 @@ p{
     font-size: 15px;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
  }
+.oex_card:hover{
+    border: 1px solid #7c7bad;
+    -moz-box-shadow: 0 0 4px #7c7bad;
+    -webkit-box-shadow: 0 0 4px #7c7bad;
+    -box-shadow: 0 0 4px #7c7bad;
+
+}
 .oex_openerp .oex_kanban_view .oex_content{
     aword-wrap: break-word;
    } 
@@ -166,4 +173,74 @@ p{
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+.oex_openerp_bold_messages {
+    font-size: 13px;
+    border: none;
+    padding: 0;
+    margin: 0;
+    background: none;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #7c7bad;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration:none;
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+}
+.oex_openerp_bold_messages:hover {
+    text-decoration: underline;
+}
+.oex_openerp_bold_tws {
+    font-size: 13px;
+    border: none;
+    padding: 0;
+    margin: 0;
+    background: none;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #7c7bad;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration:none;
+    position: absolute;
+    right: 75px;
+    bottom: 5px;
+}
+.oex_openerp_bold_tws:hover {
+    text-decoration: underline;
+}
+.oex_openerp_bold {
+    font-size: 17px;
+    border: none;
+    padding: 0;
+    margin: 0;
+    background: none;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #7c7bad;
+    font-weight: bold;
+    text-decoration:none;
+    position: absolute;
+    right: 5px;
+}
+.oex_openerp_bold:hover {
+    text-decoration: underline;
+}
+a {
+text-decoration: none;
 }

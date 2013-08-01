@@ -34,11 +34,18 @@ $(document).ready(function(){
                                 '</div>'+
                                 '<div>'+
                                 '<div class="oex_div_text">'+
+                                    '<a href="#"><span class="oex_openerp_bold">+<span></a>'+
                                     '<p class="oex_text">'+tasks.description+'</p>'+
                                 '</div>'+
                                     '<span>'+
                                         '<i class="oex_text_red">'+tasks.date_deadline+'<i>'+
                                     '<span>'+
+                                    '<span class="oex_openerp_bold_tws">'+
+                                        'Task Works'+
+                                    '</span>'+
+                                    '<span class=oex_openerp_bold_messages>'+
+                                        'Messages'+
+                                    '</span>'+
                                 '</div>'+
                             '</div>');
                 }
