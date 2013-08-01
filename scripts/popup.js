@@ -28,7 +28,7 @@ $(document).ready(function(){
                     alert(tasks.faultCode, tasks.faultString);
                 } else {
                     $('#oex_timeline').append(
-                            '<div class="oex_card">'+
+                            '<div class="oex_card" id="'+tasks.id+'">'+
                                 '<div class="oex_content">'+
                                     '<b>'+tasks.name+'</b>'+
                                 '</div>'+
@@ -40,16 +40,17 @@ $(document).ready(function(){
                                     '<span>'+
                                         '<i class="oex_text_red">'+tasks.date_deadline+'<i>'+
                                     '<span>'+
-                                    '<span class="oex_openerp_bold_tws">'+
+                                    '<a href="#"><span class="oex_openerp_bold_tws">'+
                                         'Task Works'+
-                                    '</span>'+
-                                    '<span class=oex_openerp_bold_messages>'+
+                                    '</span></a>'+
+                                    '<a href="#"><span id="'+tasks.id+'"class=oex_openerp_bold_messages>'+
                                         'Messages'+
-                                    '</span>'+
+                                    '</span></a>'+
                                 '</div>'+
                             '</div>');
                 }
             }
+            addEventClick();
         }
     });
 });
@@ -94,7 +95,22 @@ function settings(e){
     });
 
 }
+function message_clicked(task_id){
+    alert(task_id);
+}
 
+function addEventClick(){
+var messages = $('.oex_openerp_bold_messages');
+messages.each(function (a, span_obj) {
+    console.log("vaina "+ a, span_obj);
+    $span_element = $(span_obj);
+    console.log('span'+ $span_element.attr('id'));
+    var task_id = $span_element.attr('id');
+    $span_element.click(function(){
+        message_clicked(task_id);
+        });
+    });
+}
 document.addEventListener('DOMContentLoaded', function (){
     document.getElementById('settings').addEventListener('click', settings)
 });
