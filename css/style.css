@@ -115,7 +115,6 @@ p{
     color: #4c4c4c;
     font-size: 15px;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
-    overflow:hidden;
  }
 .oex_card:hover{
     border: 1px solid #7c7bad;
@@ -299,3 +298,28 @@ text-align: left;
    border-top-width:0px;
 
    }
+.oex_list_field_cell{
+    padding: 4px 6px 3px;
+    white-space: pre-line;
+    line-height: 18px;
+    vertical-align: top;
+    text-align: left;
+    border-width: 0;
+    cursor: pointer;
+    border-collapse: collapse;
+    border-spacing: 2px;
+    border-color: gray;
+    color: #404040;
+    font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
+    font-size: 13px;
+    zoom: 1;
+    border-spacing: 0px;
+    border-spacing: 2px;
+    border-color: gray;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+   border-style:solid;
+   border-bottom-width:1px;
+   border-right-width:0px;
+   border-left-width:0px;
+   border-top-width:0px;
+}
