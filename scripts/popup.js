@@ -78,10 +78,13 @@ $(document).ready(function(){
 					                '</tbody>'+
 				                '</table>'+
                                 '</div>'+
+                                '<div class="oex_messages" id="'+tasks.id+'">'+
+                                '</div>'+
                             '</div>');
                 }
             }
-            addEventClick();
+            addEventClickTw();
+            addEventClickMsg();
         }
     });
 });
@@ -140,7 +143,7 @@ function tw_clicked(task_id){
                 } else {
                     var elem = '#'+task_id+'.oex_tbody';
                     if ($('#'+works.id+'.oex_tr_tw').length > 0){
-                        console.log('vaina found');
+                        continue;
                     } else {
                         $(elem).append(
                             '<tr id="'+works.id+'" class="oex_tr_tw">'+
@@ -152,9 +155,6 @@ function tw_clicked(task_id){
                     }
                 }
             }
-        if ($('#'+task_id+'.oex_list_content').is(':visible')){
-            console.log('vaina visible');
-        } 
         var h = $('#'+task_id+'.oex_card')[0].scrollHeight;
         $('#'+task_id+'.oex_card').animate({'height':h});
         $('#'+task_id+'.oex_list_content').css({opacity: 0.0, visibility:'visible'}).animate({opacity:1.0});
@@ -163,13 +163,49 @@ function tw_clicked(task_id){
     });
 }
 
-function addEventClick(){
+function msg_clicked(task_id){
+    chrome.storage.sync.get(['uid','dbname','user','passwd','server'], function(items){
+        if (items.uid){
+        var args = [['res_id','=',task_id],['model','=','project.task']];
+        var model = 'mail.message';
+        var ids = oe_search(items, args, model);
+        var fields = ['id','body','date','author_id'];
+        for (var id in ids){
+                var messages = oe_read(items, model, ids[id], fields);
+                if (messages.faultCode){
+                    alert(messages.faultCode, messages.faultString);
+                } else {
+                    if ($('#'+messages.id+'.oex_div_message').length > 0){
+                        continue;
+                    } else {
+                        var elem = '#'+task_id+'.oex_messages';
+                        $(elem).append(
+                            '<div id="'+messages.id+'" class="oex_div_message">'+messages.body+'</div>'
+                            );  
+                        } 
+                    }
+                }
+            }
+    });
+}
+
+function addEventClickTw(){
     var tws = $('.oex_openerp_bold_tws');
     tws.each(function (a, span_obj) {
         $span_element = $(span_obj);
         var task_id = $span_element.attr('id');
         $span_element.click(function(){
             tw_clicked(task_id);
+            });
+        });
+}
+function addEventClickMsg(){
+    var msg = $('.oex_openerp_bold_messages');
+    msg.each(function (a, span_obj) {
+        $span_element = $(span_obj);
+        var task_id = $span_element.attr('id');
+        $span_element.click(function(){
+            msg_clicked(task_id);
             });
         });
 }
