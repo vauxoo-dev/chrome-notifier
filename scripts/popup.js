@@ -185,6 +185,9 @@ function msg_clicked(task_id){
                         } 
                     }
                 }
+        var h = $('#'+task_id+'.oex_card')[0].scrollHeight;
+        $('#'+task_id+'.oex_card').animate({'height':h});
+        $('#'+task_id+'.oex_messages').css({opacity: 0.0, visibility:'visible'}).animate({opacity:1.0});
             }
     });
 }
