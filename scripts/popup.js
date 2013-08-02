@@ -156,9 +156,9 @@ function tw_clicked(task_id){
                 }
             }
         var h = $('#'+task_id+'.oex_card')[0].scrollHeight;
+        $('.oex_div_message').remove();
         $('#'+task_id+'.oex_card').animate({'height':h});
         $('#'+task_id+'.oex_list_content').css({opacity: 0.0, visibility:'visible'}).animate({opacity:1.0});
-
         }
     });
 }
@@ -186,6 +186,7 @@ function msg_clicked(task_id){
                     }
                 }
         var h = $('#'+task_id+'.oex_card')[0].scrollHeight;
+        $('.oex_tr_tw').remove();
         $('#'+task_id+'.oex_card').animate({'height':h});
         $('#'+task_id+'.oex_messages').css({opacity: 0.0, visibility:'visible'}).animate({opacity:1.0});
             }
