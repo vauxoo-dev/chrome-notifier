@@ -85,6 +85,7 @@ $(document).ready(function(){
             }
             addEventClickTw();
             addEventClickMsg();
+            $('table.oex_list_content').hide();
         }
     });
 });
@@ -130,12 +131,14 @@ function settings(e){
 
 }
 function tw_clicked(task_id){
+    
     chrome.storage.sync.get(['uid','dbname','user','passwd','server'], function(items){
         if (items.uid){
         var args = [['task_id.id','=',task_id]];
         var model = 'project.task.work';
         var ids = oe_search(items, args, model);
         var fields = ['name','id','user_id','date','hours'];
+        var table = $('#'+task_id+'.oex_list_content');
         for (var id in ids){
                 var works = oe_read(items, model, ids[id], fields);
                 if (works.faultCode){
@@ -152,14 +155,13 @@ function tw_clicked(task_id){
                                 '<td class="oex_list_field_cell">'+works.date+'</td>'+
                             '</tr>'
                         );   
+                        $('#'+task_id+'.oex_list_content').css({visibility:'visible'});
                     }
                 }
             }
-        var h = $('#'+task_id+'.oex_card')[0].scrollHeight;
-        $('.oex_div_message').remove();
-        $('#'+task_id+'.oex_card').animate({'height':h});
-        $('#'+task_id+'.oex_list_content').css({opacity: 0.0, visibility:'visible'}).animate({opacity:1.0});
         }
+        table.append($(elem));
+        table.toggle();
     });
 }
 
@@ -199,7 +201,7 @@ function addEventClickTw(){
         $span_element = $(span_obj);
         var task_id = $span_element.attr('id');
         $span_element.click(function(){
-            tw_clicked(task_id);
+                tw_clicked(task_id);
             });
         });
 }
