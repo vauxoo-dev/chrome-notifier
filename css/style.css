@@ -79,6 +79,7 @@ p{
     border-color: gray;
     font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
 }
+/*
 #oex_timeline {
     shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
     padding: 0;
@@ -91,6 +92,7 @@ p{
     margin: 0;
     overflow-x: hidden;
 }
+*/
 #logo {
     z-index:100;
     cursor:pointer;

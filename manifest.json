@@ -1,12 +1,11 @@
 {
   "manifest_version": 2,
-
   "name": "OpenERP Notifications",
   "description": "This extension shows number of notifications that certain user has on OpenERP",
   "version": "1.0",
   "browser_action": {
     "default_icon": "images/icon.png",
-    "default_popup": "popup.html"
+    "default_popup": "main.html"
   },
   "permissions": [
     "storage",
@@ -18,10 +17,9 @@
   {
   "matches": ["<all_urls>"],
   "js": [
-         "scripts/underscore-min.js",
-         "scripts/backbone-min.js",
          "scripts/jquery-2.0.3.min.js",
-         "scripts/popup.js"
+         "scripts/underscore-min.js",
+         "scripts/backbone-min.js"
          ]
   }
   ]

@@ -111,29 +111,17 @@ function TaskTemplate(tasks){
     });
     var heading = $('<div class="accordion-heading">HEading</div>');
     var link_heading = $('<button class="accordion-toggle btn btn-primary"></button>'); 
-    /*
     link_heading.attr({
         data-toggle: "collapse",
-        data-parent: "#oex_timeline"
-    });
-    */
+        data-parent: "#oex_timeline",
+    }); 
     link_heading.text(tasks.name);
     heading.append(link_heading);
     var body_text = $('<div class="accordion-body"></div>');
     var body_inner = $('<div class="accordion-inner">BodyBody</div>');
-    var link_task = $('<a href="#"></a>')
-        
-    var link_message = $('<a href="#"></a>')
     body_text.append(body_inner);
-    TT.append(heading, body_text);
-/*
-                                    '<a href="#"><span span id="'+tasks.id+'" class="oex_openerp_bold_tws">'+
-                                        'Task Works'+
-                                    '</span></a>'+
-                                    '<a href="#"><span id="'+tasks.id+'"class=oex_openerp_bold_messages>'+
-                                        'Messages'+
-                                    '</span></a>'+
-*/                                    
+    TT.append(heading);
+    TT.append(body_text);
     return TT
 }
 
