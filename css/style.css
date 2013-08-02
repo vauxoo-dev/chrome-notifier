@@ -91,11 +91,11 @@ p{
     margin: 0;
     overflow-x: hidden;
 }
-   #logo {
-   z-index:100;
-   cursor:pointer;
-   border-bottom:1px solid #ccc;
-   padding:10px;
+#logo {
+    z-index:100;
+    cursor:pointer;
+    border-bottom:1px solid #ccc;
+    padding:10px;
    }
    
 .oex_card {
@@ -152,10 +152,10 @@ p{
 
 }
 .oex_div_text {
-        height:26px;
-        display:block;
-        padding:10px;
-        overflow:hidden;
+    height:26px;
+    display:block;
+    padding:10px;
+    overflow:hidden;
 }
 #oex_loading{
     width: 100%;
@@ -242,23 +242,24 @@ p{
     text-decoration: underline;
 }
 a {
-text-decoration: none;
+    text-decoration: none;
 }
 
 .oex_tws {
-background: white;
-min-height: 0px;
-padding: 16px;
-cursor: auto;
-overflow-x: auto;
-text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
-border-color: gray;
-border-collapse: collapse;
-border-spacing: 0px;
-text-align: left;
+    background: white;
+    min-height: 0px;
+    padding: 16px;
+    cursor: auto;
+    overflow-x: auto;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+    border-color: gray;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    text-align: left;
 }
+
 .oex_list_content {
-   visibility: hidden;
+    visibility: hidden;
     width: 100%;
     cursor: auto;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
@@ -276,6 +277,7 @@ text-align: left;
     padding: 0;
     border-collapse: collapse;
 }
+
 .oex_list_header_columns {
    border-color: gray;
    font-weight: bold;
@@ -296,8 +298,8 @@ text-align: left;
    border-right-width:0px;
    border-left-width:0px;
    border-top-width:0px;
-
    }
+
 .oex_list_field_cell{
     padding: 4px 6px 3px;
     white-space: pre-line;
@@ -315,11 +317,11 @@ text-align: left;
     zoom: 1;
     border-spacing: 0px;
     border-spacing: 2px;
-    border-color: gray;
+    border-color: #dfdfdf;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
-   border-style:solid;
-   border-bottom-width:1px;
-   border-right-width:0px;
-   border-left-width:0px;
-   border-top-width:0px;
+    border-style:solid;
+    border-bottom-width:1px;
+    border-right-width:0px;
+    border-left-width:0px;
+    border-top-width:0px;
 }

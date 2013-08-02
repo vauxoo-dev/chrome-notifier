@@ -139,16 +139,22 @@ function tw_clicked(task_id){
                     alert(works.faultCode, works.faultString);
                 } else {
                     var elem = '#'+task_id+'.oex_tbody';
-                    console.log(elem);
-                    $(elem).append(
-					    '<tr id="'+works.id+'" class="oex_tr">'+
-						    '<td class="oex_list_field_cell">'+works.name+'</td>'+
-						    '<td class="oex_list_field_cell">'+works.hours+'</td>'+
-						    '<td class="oex_list_field_cell">'+works.date+'</td>'+
-					    '</tr>'
-                    );    
+                    if ($('#'+works.id+'.oex_tr_tw').length > 0){
+                        console.log('vaina found');
+                    } else {
+                        $(elem).append(
+                            '<tr id="'+works.id+'" class="oex_tr_tw">'+
+                                '<td class="oex_list_field_cell">'+works.name+'</td>'+
+                                '<td class="oex_list_field_cell">'+works.hours+'</td>'+
+                                '<td class="oex_list_field_cell">'+works.date+'</td>'+
+                            '</tr>'
+                        );   
+                    }
                 }
             }
+        if ($('#'+task_id+'.oex_list_content').is(':visible')){
+            console.log('vaina visible');
+        } 
         var h = $('#'+task_id+'.oex_card')[0].scrollHeight;
         $('#'+task_id+'.oex_card').animate({'height':h});
         $('#'+task_id+'.oex_list_content').css({opacity: 0.0, visibility:'visible'}).animate({opacity:1.0});
