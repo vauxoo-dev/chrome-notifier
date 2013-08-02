@@ -41,6 +41,12 @@ $(document).ready(function(){
                 } else {
                     $('#oex_timeline').append(
                             '<div class="oex_card" id="'+tasks.id+'">'+
+'<div class="btn-group">'+
+'  <button class="btn btn-default">+</button>'+
+'  <button class="btn btn-default">-</button>'+
+'  <button class="btn btn-default">^</button>'+
+'  <button class="btn btn-default">?</button>'+
+'</div>'+
                                 '<div class="oex_content">'+
                                     '<b>'+tasks.name+'</b>'+
                                 '</div>'+
