@@ -23,33 +23,28 @@
     </ul>
     <div class="tab-content">
     <div id="about" class="tab-pane">
-<div class="hero-unit">
-  <h1>Openerp Chrome Client</h1>
-  <p>Done by Vauxoo</p>
-  <p>
-     <a href="http://vauxoo.com/chrome-extensions" target="_NEW" class="btn btn-danger btn-large">
-      Learn more
-    </a>
-  </p>
-</div>
+    <div class="hero-unit">
+      <h1>Openerp Chrome Client</h1>
+      <p>Done by Vauxoo</p>
+      <p>
+         <a href="http://vauxoo.com/chrome-extensions" target="_NEW" class="btn btn-danger btn-large">
+          Learn more
+        </a>
+      </p>
+    </div>
     </div>
     <div id="settings" class="tab-pane active">
     <form class="form-signin oex_login">
       <div class="control-group">
         <div class="controls input-append">
           <input id="hostInputButton" type="text" placeholder="http://localhost:8069">
-          <button class="btn" type="button">Load</button>
+          <button id="buttonDb" class="btn" type="button">Load</button>
         </div>
       </div>
       <div class="control-group">
         <label class="control-label" for="selectDatabase">Database</label>
         <div class="controls">
             <select id="selectDatabase">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
             </select>
         </div>
       </div>
@@ -71,7 +66,7 @@
             <input type="checkbox"> Remember me
           </label>
           <div class="btn-group">
-              <button type="submit" class="btn btn-success">Sign in</button>
+              <button id="signIn" type="submit" class="btn btn-success">Sign in</button>
               <button type="submit" class="btn btn-danger">Cancel</button>
           </div>
         </div>
