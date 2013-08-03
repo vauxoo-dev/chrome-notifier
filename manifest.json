@@ -19,7 +19,8 @@
   "js": [
          "scripts/jquery-2.0.3.min.js",
          "scripts/underscore-min.js",
-         "scripts/backbone-min.js"
+         "scripts/backbone-min.js",
+         "scripts/main.js"
          ]
   }
   ]
