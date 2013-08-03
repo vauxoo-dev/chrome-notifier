@@ -1,7 +1,6 @@
 $(document).ready(function(){
 });
 
-
 document.addEventListener('DOMContentLoaded', function (){
     document.getElementById('signIn').addEventListener('click', connect)
 });
@@ -11,8 +10,25 @@ document.addEventListener('DOMContentLoaded', function (){
 
 function fillListDb(){
     var server = document.getElementById('hostInputButton').value;
-    var request_db = new XmlRpcRequest(server+ '/xmlrpc/db');
-    console.log(request_db);
+    console.log(server);
+    $.xmlrpc({
+        url: server+'/xmlrpc/db',
+        methodName: 'list',
+        params: [],
+        success: function(response, status, jqXHR) {
+            $('#selectDatabase').append(
+                _.map(response[0], function(db){
+                    return $('<option>'+db+'</option>');
+                })
+            );
+            $('.alert').hide();
+            $('#dbFilledSuccess').toggle();
+        },
+        error: function(jqXHR, status, error) {
+            $('.alert').hide();
+            $('#dbFilledError').toggle();
+        }
+    });    
 }
 
 function connect(e){

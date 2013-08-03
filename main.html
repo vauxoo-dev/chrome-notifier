@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="dist/css/bootstrap-responsive.css" type="text/css" media=screen>
     <link rel="stylesheet" href="css/main.css" type="text/css" media=screen>
     <script src="scripts/jquery-2.0.3.min.js" type="text/javascript"></script>
+    <script src="scripts/jquery.xmlrpc.js" type="text/javascript"></script>
     <script src="scripts/underscore-min.js" type="text/javascript"></script>
     <script src="scripts/backbone-min.js" type="text/javascript"></script>
     <script src="scripts/mimic.js" type="text/javascript"></script>
@@ -38,19 +39,29 @@
       <div class="control-group">
         <div class="controls input-append">
           <input id="hostInputButton" type="text" placeholder="http://localhost:8069">
-          <button id="buttonDb" class="btn" type="button">Load</button>
+          <button id="buttonDb" class="btn" type="button"  data-loading-text="Loading...">Load</button>
         </div>
       </div>
       <div class="control-group">
         <label class="control-label" for="selectDatabase">Database</label>
         <div class="controls">
-            <select id="selectDatabase">
-            </select>
+            <div class="row-fluid span2">
+                <select id="selectDatabase">
+                </select>
+            </div>
+            <div class="row-fluid span2">
+                <div class="alert alert-error" id="dbFilledError">
+                  Error loading the url supplied.
+                </div>
+                <div class="alert alert-success" id="dbFilledSuccess">
+                  Succes Load Dbs.
+                </div>
+            </div>
         </div>
       </div>
       <div class="control-group">
-        <label class="control-label" for="inputUser">User</label>
         <div class="controls">
+          <label class="control-label" for="inputUser">User</label>
           <input type="text" id="inputUser" placeholder="User">
         </div>
       </div>
