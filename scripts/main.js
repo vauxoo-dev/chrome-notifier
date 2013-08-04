@@ -4,12 +4,14 @@ $(document).ready(function(){
 document.addEventListener('DOMContentLoaded', function (){
     document.getElementById('signIn').addEventListener('click', connect)
 });
+
 document.addEventListener('DOMContentLoaded', function (){
     document.getElementById('buttonDb').addEventListener('click', fillListDb)
 });
 
 function fillListDb(){
     var server = document.getElementById('hostInputButton').value;
+    $('#buttonDb').button('loading');
     $.xmlrpc({
         url: server+'/xmlrpc/db',
         methodName: 'list',
@@ -28,6 +30,7 @@ function fillListDb(){
                 selectDb.hide(); 
                 $('#dbFilledSuccess').html('<p>Mono db: <b>'+response[0][0]+'</b></p>');
             }
+            $('#buttonDb').button('reset');
             $('.alert').hide();
             $('#dbFilledSuccess').toggle();
         },
