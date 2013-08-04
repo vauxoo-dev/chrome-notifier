@@ -4,7 +4,28 @@ $(document).ready(function(){
 });
 
 document.addEventListener('DOMContentLoaded', function (){
-    document.getElementById('signIn').addEventListener('click', connect)
+    document.getElementById('signIn').addEventListener('click', function (){
+        setSettings();
+        connect();
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function (){
+    document.getElementById('clearSettings').addEventListener('click', function (){
+        clearSettings();
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function (){
+    document.getElementById('setSettings').addEventListener('click', function (){
+        setSettings();
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function (){
+    document.getElementById('useSettings').addEventListener('click', function (){
+        getSettings();
+    });
 });
 
 document.addEventListener('DOMContentLoaded', function (){
@@ -15,8 +36,13 @@ document.addEventListener('DOMContentLoaded', function (){
 
 
 function fillListDb(){
-    document.getElementById('hostInputButton').value = localStorage['server'];
-    var server = document.getElementById('hostInputButton').value;
+    if (!localStorage['server']){
+        var server = document.getElementById('hostInputButton').value;
+        localStorage['server'] = server;
+    } else { 
+        document.getElementById('hostInputButton').value = localStorage['server'];
+        var server = localStorage['server'];
+    }
     $('#buttonDb').button('loading');
     $.xmlrpc({
         url: server+'/xmlrpc/db',
@@ -47,6 +73,7 @@ function fillListDb(){
             document.getElementById('hostInputButton').value = ''; 
             $('.alert').hide();
             $('#dbFilledError').toggle();
+            $('#buttonDb').button('reset');
         }
     });    
 }
@@ -55,7 +82,7 @@ function connect(){
     $('#signIn').button('loading');
     var dbname = localStorage['dbname'],
         user = localStorage['user'] ,
-        passwd =localStorage['passwd'] ,
+        passwd = localStorage['passwd'] ,
         server = localStorage['server']
     $.xmlrpc({
         url: server+'/xmlrpc/common',
@@ -74,6 +101,7 @@ function connect(){
             $('#signIn').button('reset');
         },
         error: function(response, status, error) {
+            $('#signIn').button('reset');
         }
     });
 }
@@ -84,6 +112,15 @@ function setSettings(){
     localStorage['server'] = document.getElementById('hostInputButton').value;
     localStorage['user'] = document.getElementById('inputUser').value;
     localStorage['passwd'] = document.getElementById('inputPassword').value;
+}
+
+function clearSettings(){
+    delete localStorage['dbname'];
+    delete localStorage['server'];
+    delete localStorage['user'];
+    delete localStorage['passwd'];
+        $('#signIn').button('reset');
+        $('#buttonDb').button('reset');
 }
 
 function getSettings(){
