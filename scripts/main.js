@@ -47,6 +47,7 @@ function connect(){
     var server = document.getElementById('hostInputButton').value;
     var user = document.getElementById('inputUser').value;
     var passwd = document.getElementById('inputPassword').value;
+    $('#signIn').button('loading');
     chrome.storage.sync.set({'dbname':dbname,
                              'user':user,
                              'passwd':passwd,
@@ -66,6 +67,7 @@ function connect(){
                     $('#dbFilledError').html('<p>Error Login: '+user+'</p>');
                     console.log('Something is wrong with your credentials');
                 }
+                $('#signIn').button('reset');
             },
             error: function(response, status, error) {
             }
