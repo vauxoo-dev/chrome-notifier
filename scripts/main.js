@@ -3,6 +3,11 @@ $(document).ready(function(){
     connect();
 });
 
+// initialize timeline template
+function init() {
+  timeline = document.getElementById('messages');
+}
+
 document.addEventListener('DOMContentLoaded', function (){
     document.getElementById('signIn').addEventListener('click', function (){
         setSettings();
@@ -33,7 +38,6 @@ document.addEventListener('DOMContentLoaded', function (){
         fillListDb();
     });
 });
-
 
 function fillListDb(){
     if (!localStorage['server']){
@@ -127,4 +131,14 @@ function getSettings(){
     document.getElementById('hostInputButton').value = localStorage['server'];
     document.getElementById('inputUser').value = localStorage['user'];
     document.getElementById('inputPassword').value = localStorage['passwd'];
+}
+
+/*
+
+Openerp Methods
+
+*/
+
+function oe_read(){
+
 }
