@@ -16,11 +16,19 @@ function fillListDb(){
         methodName: 'list',
         params: [],
         success: function(response, status, jqXHR) {
-            $('#selectDatabase').append(
-                _.map(response[0], function(db){
-                    return $('<option>'+db+'</option>');
-                })
-            );
+            var selectDb = $('#selectDatabase')
+            dbs_elements = _.map(response[0], function(db){
+                                return $('<option>'+db+'</option>');
+                            })
+            selectDb.append(dbs_elements);
+            console.log(dbs_elements);
+            if (dbs_elements.length > 1){
+                console.log('Multidb');
+            } else {
+                console.log('Mono-db');
+                selectDb.hide(); 
+                $('#dbFilledSuccess').html('<p>Mono db: <b>'+response[0][0]+'</b></p>');
+            }
             $('.alert').hide();
             $('#dbFilledSuccess').toggle();
         },
