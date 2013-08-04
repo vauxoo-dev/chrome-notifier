@@ -1,4 +1,7 @@
+
+
 $(document).ready(function(){
+    getSettings();
 });
 
 document.addEventListener('DOMContentLoaded', function (){
@@ -43,35 +46,44 @@ function fillListDb(){
 
 function connect(){
     var e = document.getElementById("selectDatabase");
-    var dbname = e.options[e.selectedIndex].text;
-    var server = document.getElementById('hostInputButton').value;
-    var user = document.getElementById('inputUser').value;
-    var passwd = document.getElementById('inputPassword').value;
+    localStorage['dbname'] = e.options[e.selectedIndex].text;
+    localStorage['server'] = document.getElementById('hostInputButton').value;
+    localStorage['user'] = document.getElementById('inputUser').value;
+    localStorage['passwd'] = document.getElementById('inputPassword').value;
     $('#signIn').button('loading');
-    chrome.storage.sync.set({'dbname':dbname,
-                             'user':user,
-                             'passwd':passwd,
-                             'server':server },
-    function(){ 
-        $.xmlrpc({
-            url: server+'/xmlrpc/common',
-            methodName: 'login',
-            params: [ dbname, user, passwd ],
-            success: function(response, status, jqXHR) {
-                if (typeof  response[0] === 'number' && !isNaN(response[0])) {
-                    console.log('User Id' + response[0]);
-                    chrome.storage.sync.set({'uid': response[0]});
-                    $('#dbFilledSuccess').html('<p>'+dbname+'</p><p>Your are Logged as: <b>'+user+'</b></p>');
-                } else {
-                    $('#dbFilledError').toggle();
-                    $('#dbFilledError').html('<p>Error Login: '+user+'</p>');
-                    console.log('Something is wrong with your credentials');
-                }
-                $('#signIn').button('reset');
-            },
-            error: function(response, status, error) {
+    var dbname = localStorage['dbname'],
+        user = localStorage['user'] ,
+        passwd =localStorage['passwd'] ,
+        server = localStorage['server']
+    $.xmlrpc({
+        url: server+'/xmlrpc/common',
+        methodName: 'login',
+        params: [ dbname, user, passwd ],
+        success: function(response, status, jqXHR) {
+            if (typeof  response[0] === 'number' && !isNaN(response[0])) {
+                console.log('User Id' + response[0]);
+                chrome.storage.sync.set({'uid': response[0]});
+                $('#dbFilledSuccess').html('<p>'+dbname+'</p><p>Your are Logged as: <b>'+user+'</b></p>');
+            } else {
+                $('#dbFilledError').toggle();
+                $('#dbFilledError').html('<p>Error Login: '+user+'</p>');
+                console.log('Something is wrong with your credentials');
             }
-            });
+            $('#signIn').button('reset');
+        },
+        error: function(response, status, error) {
+        }
     });
+}
+
+function getSettings(){
+    console.log(localStorage["dbname"] +'    model');
+    /*
+    chrome.storage.sync.get(['uid','dbname','user','passwd','server'], function(items){
+        if (items.dbname) {
+            console.log("Reading from LocalStorage " + items.dbname);
+        }
+    });
+    */
 }
 
