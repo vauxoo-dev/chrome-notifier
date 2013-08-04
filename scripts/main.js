@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function (){
 
 function fillListDb(){
     var server = document.getElementById('hostInputButton').value;
-    console.log(server);
     $.xmlrpc({
         url: server+'/xmlrpc/db',
         methodName: 'list',
@@ -39,30 +38,35 @@ function fillListDb(){
     });    
 }
 
-function connect(e){
-    /* TODO: Fill this values
-    var dbname = document.getElementById('database').value;
-    var user = document.getElementById('login').value;
-    var passwd = document.getElementById('password').value;
-    */
-    /*
-    var request = new XmlRpcRequest(server+ '/xmlrpc/common','login');
-    console.log(server);
-    request.addParam(dbname);
-    request.addParam(user);
-    request.addParam(passwd);
-    var response = request.send();
-    var uid = response.parseXML();
-    uid = parseInt(uid);
-    if (typeof uid === 'number' && !isNaN(uid)) {
-        chrome.storage.sync.set({'uid': uid, 'dbname':dbname,'user':user,'passwd':passwd,'server':server }, function(){
-        $('#oex_main').hide('slow');
-        $('#oex_timeline').show('slow');
-        });
-    } else {
-        alert('Incorrect Login, check your data again');
-    }
-    */
-    
+function connect(){
+    var e = document.getElementById("selectDatabase");
+    var dbname = e.options[e.selectedIndex].text;
+    var server = document.getElementById('hostInputButton').value;
+    var user = document.getElementById('inputUser').value;
+    var passwd = document.getElementById('inputPassword').value;
+    chrome.storage.sync.set({'dbname':dbname,
+                             'user':user,
+                             'passwd':passwd,
+                             'server':server },
+    function(){ 
+        $.xmlrpc({
+            url: server+'/xmlrpc/common',
+            methodName: 'login',
+            params: [ dbname, user, passwd ],
+            success: function(response, status, jqXHR) {
+                if (typeof  response[0] === 'number' && !isNaN(response[0])) {
+                    console.log('User Id' + response[0]);
+                    chrome.storage.sync.set({'uid': response[0]});
+                    $('#dbFilledSuccess').html('<p>'+dbname+'</p><p>Your are Logged as: <b>'+user+'</b></p>');
+                } else {
+                    $('#dbFilledError').toggle();
+                    $('#dbFilledError').html('<p>Error Login: '+user+'</p>');
+                    console.log('Something is wrong with your credentials');
+                }
+            },
+            error: function(response, status, error) {
+            }
+            });
+    });
 }
 
