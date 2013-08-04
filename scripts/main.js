@@ -3,18 +3,6 @@ $(document).ready(function(){
     connect();
 });
 
-// initialize timeline template
-function init() {
-  timeline = document.getElementById('messages');
-}
-
-document.addEventListener('DOMContentLoaded', function (){
-    document.getElementById('signIn').addEventListener('click', function (){
-        setSettings();
-        connect();
-    });
-});
-
 document.addEventListener('DOMContentLoaded', function (){
     document.getElementById('clearSettings').addEventListener('click', function (){
         clearSettings();
@@ -36,6 +24,13 @@ document.addEventListener('DOMContentLoaded', function (){
 document.addEventListener('DOMContentLoaded', function (){
     document.getElementById('buttonDb').addEventListener('click', function(){
         fillListDb();
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function (){
+    document.getElementById('signIn').addEventListener('click', function (){
+        setSettings();
+        connect();
     });
 });
 
@@ -94,8 +89,7 @@ function connect(){
         params: [ dbname, user, passwd ],
         success: function(response, status, jqXHR) {
             if (typeof  response[0] === 'number' && !isNaN(response[0])) {
-                console.log('User Id' + response[0]);
-                chrome.storage.sync.set({'uid': response[0]});
+                localStorage['uid'] = response[0];
                 $('#dbFilledSuccess').html('<p>'+dbname+'</p><p>Your are Logged as: <b>'+user+'</b></p>');
             } else {
                 $('#dbFilledError').toggle();
@@ -133,12 +127,39 @@ function getSettings(){
     document.getElementById('inputPassword').value = localStorage['passwd'];
 }
 
+document.addEventListener('DOMContentLoaded', function (){
+    document.getElementById('loadMessages').addEventListener('click', function (){
+        oe_read('project.task', [1,2,3], ['name', 'description']);
+    });
+});
+
 /*
 
 Openerp Methods
 
 */
 
-function oe_read(){
-
+function oe_read(model, ids, fields){
+    var forcedIds = $.xmlrpc.force('array', ids)
+    var forcedUid = $.xmlrpc.force('int', localStorage['uid'])
+    var forcedFields = $.xmlrpc.force('array', fields)
+    $.xmlrpc({
+        url: localStorage['server']+'/xmlrpc/object',
+        methodName: 'execute',
+        params: [ localStorage['dbname'],
+                  forcedUid,
+                  localStorage['passwd'],
+                  model,
+                  'read',
+                  forcedIds,
+                  forcedFields],
+        success: function(response, status, jqXHR) {
+            console.log('Read Working  ' + response );
+            console.log('Read Working  ' + response[0]);
+        },
+        error: function(response, status, error) {
+            console.log('Read Error  ' + response );
+            console.log('Read Error  ' + error );
+        }
+    });
 }
