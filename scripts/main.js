@@ -1,7 +1,6 @@
-
-
 $(document).ready(function(){
-    getSettings();
+    fillListDb();
+    connect();
 });
 
 document.addEventListener('DOMContentLoaded', function (){
@@ -9,10 +8,14 @@ document.addEventListener('DOMContentLoaded', function (){
 });
 
 document.addEventListener('DOMContentLoaded', function (){
-    document.getElementById('buttonDb').addEventListener('click', fillListDb)
+    document.getElementById('buttonDb').addEventListener('click', function(){
+        fillListDb();
+    });
 });
 
+
 function fillListDb(){
+    document.getElementById('hostInputButton').value = localStorage['server'];
     var server = document.getElementById('hostInputButton').value;
     $('#buttonDb').button('loading');
     $.xmlrpc({
@@ -27,9 +30,12 @@ function fillListDb(){
             selectDb.append(dbs_elements);
             console.log(dbs_elements);
             if (dbs_elements.length > 1){
-                console.log('Multidb');
             } else {
-                console.log('Mono-db');
+                var e = document.getElementById("selectDatabase");
+                dbname = e.options[e.selectedIndex].text;
+                if (localStorage['dbname'] === dbname){
+                     getSettings();    
+                }
                 selectDb.hide(); 
                 $('#dbFilledSuccess').html('<p>Mono db: <b>'+response[0][0]+'</b></p>');
             }
@@ -38,6 +44,7 @@ function fillListDb(){
             $('#dbFilledSuccess').toggle();
         },
         error: function(jqXHR, status, error) {
+            document.getElementById('hostInputButton').value = ''; 
             $('.alert').hide();
             $('#dbFilledError').toggle();
         }
@@ -45,11 +52,6 @@ function fillListDb(){
 }
 
 function connect(){
-    var e = document.getElementById("selectDatabase");
-    localStorage['dbname'] = e.options[e.selectedIndex].text;
-    localStorage['server'] = document.getElementById('hostInputButton').value;
-    localStorage['user'] = document.getElementById('inputUser').value;
-    localStorage['passwd'] = document.getElementById('inputPassword').value;
     $('#signIn').button('loading');
     var dbname = localStorage['dbname'],
         user = localStorage['user'] ,
@@ -76,14 +78,16 @@ function connect(){
     });
 }
 
-function getSettings(){
-    console.log(localStorage["dbname"] +'    model');
-    /*
-    chrome.storage.sync.get(['uid','dbname','user','passwd','server'], function(items){
-        if (items.dbname) {
-            console.log("Reading from LocalStorage " + items.dbname);
-        }
-    });
-    */
+function setSettings(){
+    var e = document.getElementById("selectDatabase");
+    localStorage['dbname'] = e.options[e.selectedIndex].text;
+    localStorage['server'] = document.getElementById('hostInputButton').value;
+    localStorage['user'] = document.getElementById('inputUser').value;
+    localStorage['passwd'] = document.getElementById('inputPassword').value;
 }
 
+function getSettings(){
+    document.getElementById('hostInputButton').value = localStorage['server'];
+    document.getElementById('inputUser').value = localStorage['user'];
+    document.getElementById('inputPassword').value = localStorage['passwd'];
+}
