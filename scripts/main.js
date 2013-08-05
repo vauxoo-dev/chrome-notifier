@@ -203,8 +203,10 @@ function actionButtons (taskObj){
     res = btnGroup.append(aToggle, buttonContainer.append(refreshTask, sendMessage, loadTW, loadMessages));
     return res 
 }
+
 //TODO: Every action using the data-resid will execute the process using Ajax
 //in only the specific element.
+
 function actSendMessage(el){
     console.log('Send MEssage');
     console.log(el.parent().attr('data-resid'));
@@ -223,7 +225,6 @@ function actLoadTW(el){
 function actRefreshTask(el){
     console.log('Refreshi Tasks');
     console.log(el.parent().attr('data-resid'));
-    //console.log(el.parent().parent().attr('data-resid'));
 }
 
 function oe_read(model, ids, fields, button){
@@ -232,6 +233,7 @@ function oe_read(model, ids, fields, button){
     var forcedFields = $.xmlrpc.force('array', fields)
     $("#"+button).button('loading');
     placeHolderAcc = $("#accordion2");
+    placeHolderAcc.html('');
     $.xmlrpc({
         url: localStorage['server']+'/xmlrpc/object',
         methodName: 'execute',
