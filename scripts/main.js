@@ -159,7 +159,7 @@ function taskView(taskObj) {
        'href': "#collapse"+taskObj.id
     });
     heading.text(taskObj.name);
-    buttonAct = actionButtons(taskObj);
+    buttonAct = actionButtons(taskObj),
     bodyoftask.prepend($('<div class="row-fluid"></div>').append(buttonAct));
     bodyoftask.append($('<p></p>').text(taskObj.description));
     tableTW.addClass('table table-condensed table-striped table-bordered');
@@ -176,7 +176,9 @@ function actionButtons (taskObj){
         spanSpace = $('<span class="caret"></span>'),
         buttonContainer = $('<ul class="dropdown-menu"></ul>')
     buttonContainer.attr({
-            'id': 'pt' + taskObj.id
+            'data-resid': taskObj.id,
+            //TODO: generalize this object stuff for other things.
+            'data-object': 'project.task'
         });
     aToggle.text('Actions');
     aToggle.prepend(spanSpace);
@@ -184,9 +186,36 @@ function actionButtons (taskObj){
         sendMessage = $('<li><a href="#">Send Message</a></li>'), 
         loadMessages = $('<li><a href="#">Messages</a></li>'),
         loadTW = $('<li><a href="#">Reload</a></li>')
-    
+        //Setting actions
+ 
+        refreshTask.click(function(){ actRefreshTask($(this)) });
+        sendMessage.click(function(){ actSendMessage($(this)) });
+        loadMessages.click(function(){ actLoadMessages($(this)) });
+        loadTW.click(function(){ actLoadMessages($(this)) });
     res = btnGroup.append(aToggle, buttonContainer.append(refreshTask, sendMessage, loadTW, loadMessages));
     return res 
+}
+//TODO: Every action using the data-resid will execute the process using Ajax
+//in only the specific element.
+function actSendMessage(el){
+    console.log('refresh')
+    console.log(el.parent().attr('data-resid'));
+}
+
+function actLoadMessages(el){
+    console.log('refresh')
+    console.log(el.parent().attr('data-resid'));
+}
+
+function actLoadTW(el){
+    console.log('refresh')
+    console.log(el.parent().attr('data-resid'));
+}
+
+function actRefreshTask(el){
+    console.log('refresh');
+    console.log(el.parent().attr('data-resid'));
+    //console.log(el.parent().parent().attr('data-resid'));
 }
 
 function oe_read(model, ids, fields, button){
