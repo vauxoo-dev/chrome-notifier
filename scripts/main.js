@@ -48,10 +48,11 @@ function fillListDb(){
         methodName: 'list',
         params: [],
         success: function(response, status, jqXHR) {
-            var selectDb = $('#selectDatabase')
+            var selectDb = $('#selectDatabase');
+            selectDb.html('');
             dbs_elements = _.map(response[0], function(db){
                                 return $('<option>'+db+'</option>');
-                            })
+                            });
             selectDb.append(dbs_elements);
             if (dbs_elements.length > 1){
             } else {
