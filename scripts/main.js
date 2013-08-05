@@ -142,16 +142,32 @@ Openerp Methods
 
 */
 
+function messageView(taskObj){
+    var messageCont = $('<div class="alert alert-success"></div>'),
+        messageText = $('<div class="well well-small"><div>') 
+        messageTitle = $('<h4></h4>'),
+        messageContent = 'iCras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.',
+        messageTitleContent = 'Hola Mundo',
+        buttonsCont = $('<div></div>')
+        return messageCont.append(messageText.append(messageTitle.text(messageTitleContent), $('<p>').text(messageContent)),buttonsCont)
+}
+
 function taskView(taskObj) {
     var base = $('<div></div>'),
         heading = $('<a></a>'),
         bodyoftask = base,
+        messagesPlaceholder = $('<div></div>'),
         allElements = $('<div></div>')
+
     heading.addClass('accordion-heading');
     bodyoftask.addClass('accordion-body collapse');
     bodyoftask.attr({
         'id': 'collapse'+taskObj.id
     });
+    messagesPlaceholder.attr({
+        'class': 'messages'
+    });
+    messagesPlaceholder.append(messageView);
     bodyoftask.css({'height': '0px'});
     heading.attr({
        'data-toggle': "collapse", 
@@ -162,7 +178,7 @@ function taskView(taskObj) {
     buttonAct = actionButtons(taskObj),
     bodyoftask.prepend($('<div class="row-fluid"></div>').append(buttonAct));
     bodyoftask.append($('<p></p>').text(taskObj.description));
-    bodyoftask.append(getTableTW(taskObj));
+    bodyoftask.append(getTableTW(taskObj), messagesPlaceholder);
     allElements.addClass("accordion-group"); 
     allElements.append(heading, bodyoftask);
     return allElements
