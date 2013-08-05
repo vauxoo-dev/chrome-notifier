@@ -145,8 +145,7 @@ function taskView(taskObj) {
     var base = $('<div></div>'),
         heading = $('<a></a>'),
         bodyoftask = base,
-        allElements = $('<div></div>'),
-        tableTW = $('<table></table>')
+        allElements = $('<div></div>')
     heading.addClass('accordion-heading');
     bodyoftask.addClass('accordion-body collapse');
     bodyoftask.attr({
@@ -162,12 +161,20 @@ function taskView(taskObj) {
     buttonAct = actionButtons(taskObj),
     bodyoftask.prepend($('<div class="row-fluid"></div>').append(buttonAct));
     bodyoftask.append($('<p></p>').text(taskObj.description));
-    tableTW.addClass('table table-condensed table-striped table-bordered');
-    tableTW.append("<caption><h5>Task Works</h5></caption><tbody><thead><tr><th>Id</td><th>Details</th><th>Time</th><th>RevId</th></tr></thead></tbody><tbody><tr><td>5</td><td>I did Something</td><td>10/12/2013 10:10:11</td><td>28</td></tr></tbody>");
-    bodyoftask.append(tableTW);
+    bodyoftask.append(getTableTW(taskObj));
     allElements.addClass("accordion-group"); 
     allElements.append(heading, bodyoftask);
     return allElements
+}
+
+function getTableTW(taskObj){
+    var tableTW = $('<table></table>'),
+        tableCaption = $('<caption><h5>Task Works</h5></caption>')
+    tableTW.addClass('table table-condensed table-striped table-bordered');
+    tableTW.append("<tbody><thead><tr><th>Id</td><th>Details</th><th>Time</th><th>RevId</th>");
+    content = $("</tr></thead></tbody><tbody><tr><td>5</td><td>I did Something</td><td>10/12/2013 10:10:11</td><td>28</td></tr></tbody>");
+    return tableTW
+    
 }
 
 function actionButtons (taskObj){
@@ -182,10 +189,10 @@ function actionButtons (taskObj){
         });
     aToggle.text('Actions');
     aToggle.prepend(spanSpace);
-    var refreshTask = $('<li><a href="#">Refresh</a></li>'), 
-        sendMessage = $('<li><a href="#">Send Message</a></li>'), 
-        loadMessages = $('<li><a href="#">Messages</a></li>'),
-        loadTW = $('<li><a href="#">Reload</a></li>')
+    var refreshTask = $('<li><i class="icon-arrow-down"></i>Refresh</li>'), 
+        sendMessage = $('<li><i class="icon-pencil"></i>Send Msg</li>'), 
+        loadMessages = $('<li><i class="icon-envelope"></i>>Messages</li>'),
+        loadTW = $('<li><i class="icon-info-sign"></i>Reload</li>')
         //Setting actions
  
         refreshTask.click(function(){ actRefreshTask($(this)) });
@@ -198,22 +205,22 @@ function actionButtons (taskObj){
 //TODO: Every action using the data-resid will execute the process using Ajax
 //in only the specific element.
 function actSendMessage(el){
-    console.log('refresh')
+    console.log('Send MEssage');
     console.log(el.parent().attr('data-resid'));
 }
 
 function actLoadMessages(el){
-    console.log('refresh')
+    console.log('Load Messages');
     console.log(el.parent().attr('data-resid'));
 }
 
 function actLoadTW(el){
-    console.log('refresh')
+    console.log('Load TW');
     console.log(el.parent().attr('data-resid'));
 }
 
 function actRefreshTask(el){
-    console.log('refresh');
+    console.log('Refreshi Tasks');
     console.log(el.parent().attr('data-resid'));
     //console.log(el.parent().parent().attr('data-resid'));
 }
