@@ -135,11 +135,6 @@ document.addEventListener('DOMContentLoaded', function (){
     });
 });
 
-document.addEventListener('DOMContentLoaded', function (){
-    document.getElementById('ButtonModal').addEventListener('click', function (){
-    });
-});
-
 /*
 
 Openerp Methods
@@ -164,13 +159,34 @@ function taskView(taskObj) {
        'href': "#collapse"+taskObj.id
     });
     heading.text(taskObj.name);
-    bodyoftask.text(taskObj.description);
+    buttonAct = actionButtons(taskObj);
+    bodyoftask.prepend($('<div class="row-fluid"></div>').append(buttonAct));
+    bodyoftask.append($('<p></p>').text(taskObj.description));
     tableTW.addClass('table table-condensed table-striped table-bordered');
     tableTW.append("<caption><h5>Task Works</h5></caption><tbody><thead><tr><th>Id</td><th>Details</th><th>Time</th><th>RevId</th></tr></thead></tbody><tbody><tr><td>5</td><td>I did Something</td><td>10/12/2013 10:10:11</td><td>28</td></tr></tbody>");
     bodyoftask.append(tableTW);
     allElements.addClass("accordion-group"); 
     allElements.append(heading, bodyoftask);
     return allElements
+}
+
+function actionButtons (taskObj){
+    var btnGroup=$("<div class='btn-group span4'></div>"),
+        aToggle=$('<a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#"></a>'),
+        spanSpace = $('<span class="caret"></span>'),
+        buttonContainer = $('<ul class="dropdown-menu"></ul>')
+    buttonContainer.attr({
+            'id': 'pt' + taskObj.id
+        });
+    aToggle.text('Actions');
+    aToggle.prepend(spanSpace);
+    var refreshTask = $('<li><a href="#">Refresh</a></li>'), 
+        sendMessage = $('<li><a href="#">Send Message</a></li>'), 
+        loadMessages = $('<li><a href="#">Messages</a></li>'),
+        loadTW = $('<li><a href="#">Reload</a></li>')
+    
+    res = btnGroup.append(aToggle, buttonContainer.append(refreshTask, sendMessage, loadTW, loadMessages));
+    return res 
 }
 
 function oe_read(model, ids, fields, button){
