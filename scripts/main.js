@@ -53,7 +53,6 @@ function fillListDb(){
                                 return $('<option>'+db+'</option>');
                             })
             selectDb.append(dbs_elements);
-            console.log(dbs_elements);
             if (dbs_elements.length > 1){
             } else {
                 var e = document.getElementById("selectDatabase");
@@ -133,7 +132,11 @@ document.addEventListener('DOMContentLoaded', function (){
                       [1,2,3],
                       ['name', 'description'],
                       this.id);
-        console.log(res);
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function (){
+    document.getElementById('ButtonModal').addEventListener('click', function (){
     });
 });
 
@@ -143,12 +146,39 @@ Openerp Methods
 
 */
 
+function taskView(taskObj) {
+    var base = $('<div></div>'),
+        heading = $('<a></a>'),
+        bodyoftask = base,
+        allElements = $('<div></div>'),
+        tableTW = $('<table></table>')
+    heading.addClass('accordion-heading');
+    bodyoftask.addClass('accordion-body collapse');
+    bodyoftask.attr({
+        'id': 'collapse'+taskObj.id
+    });
+    bodyoftask.css({'height': '0px'});
+    heading.attr({
+       'data-toggle': "collapse", 
+       'data-parent': "#acordion2", 
+       'href': "#collapse"+taskObj.id
+    });
+    heading.text(taskObj.name);
+    bodyoftask.text(taskObj.description);
+    tableTW.addClass('table table-condensed table-striped table-bordered');
+    tableTW.append("<caption><h5>Task Works</h5></caption><tbody><thead><tr><th>Id</td><th>Details</th><th>Time</th><th>RevId</th></tr></thead></tbody><tbody><tr><td>5</td><td>I did Something</td><td>10/12/2013 10:10:11</td><td>28</td></tr></tbody>");
+    bodyoftask.append(tableTW);
+    allElements.addClass("accordion-group"); 
+    allElements.append(heading, bodyoftask);
+    return allElements
+}
+
 function oe_read(model, ids, fields, button){
     var forcedIds = $.xmlrpc.force('array', ids)
     var forcedUid = $.xmlrpc.force('int', localStorage['uid'])
     var forcedFields = $.xmlrpc.force('array', fields)
     $("#"+button).button('loading');
-    placeHolderAcc = $("#accordion2")
+    placeHolderAcc = $("#accordion2");
     $.xmlrpc({
         url: localStorage['server']+'/xmlrpc/object',
         methodName: 'execute',
@@ -162,19 +192,11 @@ function oe_read(model, ids, fields, button){
         success: function(response, status, jqXHR) {
             $("#"+button).button('reset');
             var elements = _.map(response[0], function(e){
-                heading = $('<div class="accordion-heading"></div>');
-                bodyoftask = $('<div id="collapse'+e.id+'" class="accordion-body collapse" style="height:0px"></div>');
-                heading.append('<a data-toggle="collapse" data-parent="#acordion2" href="#collapse'+e.id+'">'+e.name+'</a>');
-                bodyoftask.append('<div class="accordion-inner">'+e.description+'</div>');
-                allElements = $('<div class="accordion-group"></div>')
-                allElements.append(heading, bodyoftask);
-                return allElements
+                return taskView(e);
             });
             placeHolderAcc.append(elements);
         },
         error: function(response, status, error) {
-            console.log('Read Error  ' + response );
-            console.log('Read Error  ' + error );
             $("#"+button).button('reset');
         }
     });
