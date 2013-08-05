@@ -163,15 +163,14 @@ function oe_read(model, ids, fields, button){
             $("#"+button).button('reset');
             var elements = _.map(response[0], function(e){
                 heading = $('<div class="accordion-heading"></div>');
-                bodyoftask = $('<div id="collapse"'+e.id+' class="accordion-body collapse" style="height:0px"></div>');
-                heading.append('<a data-toggle="collapse" data-parent="#acordion2" href="collapse'+e.id+'">'+e.name+'</a>');
+                bodyoftask = $('<div id="collapse'+e.id+'" class="accordion-body collapse" style="height:0px"></div>');
+                heading.append('<a data-toggle="collapse" data-parent="#acordion2" href="#collapse'+e.id+'">'+e.name+'</a>');
                 bodyoftask.append('<div class="accordion-inner">'+e.description+'</div>');
                 allElements = $('<div class="accordion-group"></div>')
                 allElements.append(heading, bodyoftask);
                 return allElements
             });
             placeHolderAcc.append(elements);
-            
         },
         error: function(response, status, error) {
             console.log('Read Error  ' + response );
