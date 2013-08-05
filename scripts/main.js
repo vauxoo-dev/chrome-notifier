@@ -129,7 +129,11 @@ function getSettings(){
 
 document.addEventListener('DOMContentLoaded', function (){
     document.getElementById('loadMessages').addEventListener('click', function (){
-        oe_read('project.task', [1,2,3], ['name', 'description']);
+        res = oe_read('project.task',
+                      [1,2,3],
+                      ['name', 'description'],
+                      this.id);
+        console.log(res);
     });
 });
 
@@ -139,10 +143,11 @@ Openerp Methods
 
 */
 
-function oe_read(model, ids, fields){
+function oe_read(model, ids, fields, button){
     var forcedIds = $.xmlrpc.force('array', ids)
     var forcedUid = $.xmlrpc.force('int', localStorage['uid'])
     var forcedFields = $.xmlrpc.force('array', fields)
+    $("#"+button).button('loading');
     $.xmlrpc({
         url: localStorage['server']+'/xmlrpc/object',
         methodName: 'execute',
@@ -154,12 +159,17 @@ function oe_read(model, ids, fields){
                   forcedIds,
                   forcedFields],
         success: function(response, status, jqXHR) {
-            console.log('Read Working  ' + response );
-            console.log('Read Working  ' + response[0]);
+            $("#"+button).button('reset');
+            var res = _.map(response[0], function(e){
+                console.log('Model ' + model);
+                console.log('NAme ' + e.name);
+                return  e
+            });
         },
         error: function(response, status, error) {
             console.log('Read Error  ' + response );
             console.log('Read Error  ' + error );
+            $("#"+button).button('reset');
         }
     });
 }
