@@ -182,7 +182,7 @@ function taskView(taskObj) {
        'data-parent': "#acordion2", 
        'href': "#collapse"+taskObj.id
     });
-    heading.text(taskObj.name);
+    heading.append($('<i class="icon-chevron-right">'),$('<b>').text(taskObj.id+': '), taskObj.name)
     buttonAct = actionButtons(taskObj),
     bodyoftask.prepend($('<div class="row-fluid"></div>').append(buttonAct));
     bodyoftask.append($('<p></p>').text(taskObj.description));
@@ -234,7 +234,6 @@ function getTableTW(taskObj){
                         tableTW.append(content);
                         return e;
                     });
-                    console.log(content);
                 },
                 error: function(response, status, error) {
                 }
@@ -330,31 +329,56 @@ function actRefreshTask(el){
 }
 
 function oe_read(model, ids, fields, button){
-    var forcedIds = $.xmlrpc.force('array', ids)
-    var forcedUid = $.xmlrpc.force('int', localStorage['uid'])
-    var forcedFields = $.xmlrpc.force('array', fields)
-    $("#"+button).button('loading');
-    placeHolderAcc = $("#accordion2");
-    placeHolderAcc.html('');
+    //Searching TW ids and reading them.
+    //var forcedIds = $.xmlrpc.force('array', ids)
+    var forcedUid = $.xmlrpc.force('int', localStorage['uid']),
+        forcedDomain = $.xmlrpc.force('array', [['user_id', '=', parseInt(localStorage['uid'])]]),
+        Url = localStorage['server']+'/xmlrpc/object'
+        Db = localStorage['dbname'],
+        Passwd = localStorage['passwd'],
+        forcedFields = $.xmlrpc.force('array',
+                       ['id', 'name', 'user_id', 'description'])
+        $("#"+button).button('loading');
+        placeHolderAcc = $("#accordion2");
+        placeHolderAcc.html('');
+        console.log(forcedDomain);
     $.xmlrpc({
-        url: localStorage['server']+'/xmlrpc/object',
+        url: Url,
         methodName: 'execute',
-        params: [ localStorage['dbname'],
+        params: [ Db,
                   forcedUid,
-                  localStorage['passwd'],
-                  model,
-                  'read',
-                  forcedIds,
-                  forcedFields],
+                  Passwd,
+                  'project.task',
+                  'search',
+                  forcedDomain],
         success: function(response, status, jqXHR) {
-            $("#"+button).button('reset');
-            var elements = _.map(response[0], function(e){
-                return taskView(e);
+            console.log('entre'+ response);
+            forcedIds = $.xmlrpc.force('array', response[0]),
+            $.xmlrpc({
+                url: Url,
+                methodName: 'execute',
+                params: [ Db,
+                          forcedUid,
+                          Passwd,
+                          'project.task',
+                          'read',
+                          forcedIds,
+                          forcedFields],
+                success: function(response, status, jqXHR) {
+                    $("#"+button).button('reset');
+                    var elements = _.map(response[0], function(e){
+                        return taskView(e);
+                    });
+                    placeHolderAcc.append(elements);
+                },
+                error: function(response, status, error) {
+                    $("#"+button).button('reset');
+                }
             });
-            placeHolderAcc.append(elements);
         },
         error: function(response, status, error) {
             $("#"+button).button('reset');
         }
     });
+    //////////////
 }
