@@ -143,14 +143,21 @@ Openerp Methods
 */
 
 function messageView(taskObj){
-    var messageCont = $('<div class="alert alert-success"></div>'),
-        messageText = $('<div class="well well-small"><div>') 
-        messageTitle = $('<h4></h4>'),
+    var messageCont = $('<div class="media"></div>'),
+        imgCont = $('<a class="pull-left" href="#">').append($('<img>').attr({
+            'class': 'media-object',
+            'src': 'images/img64x64.png'
+        })),
+        messageText = $('<div class="media-body"><div>') 
+        messageTitle = $('<h4 class="media-heading"></h4>'),
         messageContent = 'iCras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.',
-        messageTitleContent = 'Hola Mundo',
-        buttonsCont = $('<div></div>')
-        buttonsCont.prepend(actionButtonsMessage(taskObj));
-        return messageCont.append(buttonsCont, messageText.append(messageTitle.text(messageTitleContent), $('<p>').text(messageContent)))
+        messageTitleContent = 'Hola Mundo'
+        console.log(imgCont);
+        buttonsCont = actionButtonsMessage(taskObj).addClass('row span1');
+        return messageCont.append(imgCont,
+                                  messageText.append(buttonsCont,
+                                                     messageTitle.text(messageTitleContent),
+                                                     $('<p>').text(messageContent)))
 }
 
 function taskView(taskObj) {
@@ -189,8 +196,9 @@ function getTableTW(taskObj){
     var tableTW = $('<table></table>'),
         tableCaption = $('<caption><h5>Task Works</h5></caption>')
     tableTW.addClass('table table-condensed table-striped table-bordered');
-    tableTW.append("<tbody><thead><tr><th>Id</td><th>Details</th><th>Time</th><th>RevId</th>");
-    content = $("</tr></thead></tbody><tbody><tr><td>5</td><td>I did Something</td><td>10/12/2013 10:10:11</td><td>28</td></tr></tbody>");
+    tableTW.append("<thead><tr><th>Id</th><th>Details</th><th>Time</th><th>RevId</th></tr></thead>");
+    content = $("<tbody><tr><td>5</td><td>I did Something</td><td>10/12/2013 10:10:11</td><td>28</td></tr></tbody>");
+    tableTW.append(content);
     return tableTW
 }
 
@@ -206,7 +214,7 @@ function actionButtonsMessage (taskObj){
         });
     aToggle.text('Actions');
     aToggle.prepend(spanSpace);
-    var answerTask = $('<li><i class="icon-share-alt"></i>Refresh</li>'), 
+    var answerTask = $('<li><i class="icon-share-alt"></i>Reply</li>'), 
         favoriteMessage = $('<li><i class="icon-star-empty"></i>Fav Msg</li>') 
 
         // Setting Actions.
