@@ -163,7 +163,6 @@ function messageView(taskObj){
                   forcedFields],
         success: function(response, status, jqXHR) {
             var elements = _.map(response[0], function(e){
-                console.log($(e.body));
                 imgCont = $('<a>').attr({
                     "class": "pull-left",
                     "href": "#"
@@ -173,13 +172,13 @@ function messageView(taskObj){
                 }));
                 messageText = $('<div class="media-body"><div>');
                 messageTitle = $('<h6 class="media-heading"></h6>');
-                messageContent = e.body;
+                messageContent = $('<div class="body">').html(e.body);
                 messageTitleContent = 'Author: '+e.author_id[1];
                 buttonsCont = actionButtonsMessage(taskObj).addClass('row span1');
                 return messageCont.append(imgCont,
                               messageText.append(buttonsCont,
                                          messageTitle.text(messageTitleContent),
-                                         $('<p>').text(messageContent)))
+                                         messageContent))
             });
         },
         error: function(response, status, error) {
@@ -222,6 +221,7 @@ function taskView(taskObj) {
                    $('<b>').text(taskObj.id+': '),
                    state,
                    stage,
+                   $('<br>'),
                    taskObj.name);
     var buttonAct = actionButtons(taskObj);
     bodyoftask.prepend($('<div class="row-fluid"></div>').append(buttonAct));
