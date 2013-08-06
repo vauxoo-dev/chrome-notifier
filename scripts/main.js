@@ -109,6 +109,7 @@ function setSettings(){
     localStorage['server'] = document.getElementById('hostInputButton').value;
     localStorage['user'] = document.getElementById('inputUser').value;
     localStorage['passwd'] = document.getElementById('inputPassword').value;
+    localStorage['use_avatar'] = document.getElementById('inputAvatar').checked;
 }
 
 function clearSettings(){
@@ -116,6 +117,7 @@ function clearSettings(){
     delete localStorage['server'];
     delete localStorage['user'];
     delete localStorage['passwd'];
+    delete localStorage['use_avatar'];
         $('#signIn').button('reset');
         $('#buttonDb').button('reset');
 }
@@ -141,6 +143,10 @@ Openerp Methods
 
 */
 
+function getImgAvatar(){
+    return "/images/img64x64.png"
+}
+
 function messageView(taskObj){
     var messageCont = $('<div class="media"></div>'),
         forcedUid = $.xmlrpc.force('int', localStorage['uid']),
@@ -163,13 +169,19 @@ function messageView(taskObj){
                   forcedFields],
         success: function(response, status, jqXHR) {
             var elements = _.map(response[0], function(e){
-                imgCont = $('<a>').attr({
-                    "class": "pull-left",
-                    "href": "#"
-                }).append($('<img>').attr({
-                    'class': 'media-object',
-                    'src': 'images/img64x64.png'
-                }));
+                    imgCont = $('<a>').attr({
+                        "class": "pull-left",
+                        "href": "#"
+                    }).append($('<img>').attr({
+                        'class': 'media-object',
+                        'src': 'images/fromFile.jpg'
+                    }));
+                console.log(localStorage['use_avatar']);
+                if (localStorage['use_avatar'] === 'true'){
+                    imgCont.children().attr({
+                        'src': getImgAvatar(e.id)
+                    }); 
+                }
                 messageText = $('<div class="media-body"><div>');
                 messageTitle = $('<h6 class="media-heading"></h6>');
                 messageContent = $('<div class="body">').html(e.body);
