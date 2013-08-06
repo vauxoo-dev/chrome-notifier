@@ -212,12 +212,14 @@ function taskView(taskObj) {
        'href': "#collapse"+taskObj.id
     });
     var state = $('<span class="label">').text(taskObj.state);
+    var stage = $('<span class="badge badge-info">').text(taskObj.stage_id[1]);
 
     if (taskObj.state === 'draft'){ state.addClass('label-important'); }
     else if (taskObj.state === 'open') { state.addClass('label-success');}
     else if (taskObj.state === 'done') {state.addClass('label-inverse'); }
 
     heading.append(state,
+                   stage,
                    $('<i class="icon-chevron-right">'),
                    $('<b>').text(taskObj.id+': '),
                    taskObj.name);
