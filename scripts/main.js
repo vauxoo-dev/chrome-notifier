@@ -149,7 +149,8 @@ function messageView(taskObj){
         messageContent = 'iCras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.',
         messageTitleContent = 'Hola Mundo',
         buttonsCont = $('<div></div>')
-        return messageCont.append(messageText.append(messageTitle.text(messageTitleContent), $('<p>').text(messageContent)),buttonsCont)
+        buttonsCont.prepend(actionButtonsMessage(taskObj));
+        return messageCont.append(buttonsCont, messageText.append(messageTitle.text(messageTitleContent), $('<p>').text(messageContent)))
 }
 
 function taskView(taskObj) {
@@ -191,7 +192,30 @@ function getTableTW(taskObj){
     tableTW.append("<tbody><thead><tr><th>Id</td><th>Details</th><th>Time</th><th>RevId</th>");
     content = $("</tr></thead></tbody><tbody><tr><td>5</td><td>I did Something</td><td>10/12/2013 10:10:11</td><td>28</td></tr></tbody>");
     return tableTW
-    
+}
+
+function actionButtonsMessage (taskObj){
+    var btnGroup=$("<div class='btn-group span4'></div>"),
+        aToggle=$('<a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#"></a>'),
+        spanSpace = $('<span class="caret"></span>'),
+        buttonContainer = $('<ul class="dropdown-menu"></ul>')
+    buttonContainer.attr({
+            'data-resid': taskObj.id,
+            //TODO: generalize this object stuff for other things.
+            'data-object': 'project.task'
+        });
+    aToggle.text('Actions');
+    aToggle.prepend(spanSpace);
+    var answerTask = $('<li><i class="icon-share-alt"></i>Refresh</li>'), 
+        favoriteMessage = $('<li><i class="icon-star-empty"></i>Fav Msg</li>') 
+
+        // Setting Actions.
+
+        answerTask.click(function(){ actRefreshTask($(this)) });
+        favoriteMessage.click(function(){ actRefreshTask($(this)) });
+    res = btnGroup.append(aToggle,
+                          buttonContainer.append(answerTask, favoriteMessage));
+    return res
 }
 
 function actionButtons (taskObj){
@@ -210,6 +234,7 @@ function actionButtons (taskObj){
         sendMessage = $('<li><i class="icon-pencil"></i>Send Msg</li>'), 
         loadMessages = $('<li><i class="icon-envelope"></i>>Messages</li>'),
         loadTW = $('<li><i class="icon-info-sign"></i>Reload</li>')
+
         //Setting actions
  
         refreshTask.click(function(){ actRefreshTask($(this)) });
