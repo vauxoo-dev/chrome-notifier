@@ -218,10 +218,10 @@ function taskView(taskObj) {
     else if (taskObj.state === 'open') { state.addClass('label-success');}
     else if (taskObj.state === 'done') {state.addClass('label-inverse'); }
 
-    heading.append(state,
-                   stage,
-                   $('<i class="icon-chevron-right">'),
+    heading.append( $('<i class="icon-chevron-right">'),
                    $('<b>').text(taskObj.id+': '),
+                   state,
+                   stage,
                    taskObj.name);
     var buttonAct = actionButtons(taskObj);
     bodyoftask.prepend($('<div class="row-fluid"></div>').append(buttonAct));
