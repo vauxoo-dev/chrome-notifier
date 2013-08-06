@@ -226,7 +226,6 @@ function taskView(taskObj) {
     var buttonAct = actionButtons(taskObj);
     bodyoftask.prepend($('<div class="row-fluid"></div>').append(buttonAct));
     bodyoftask.append($('<p></p>').text(taskObj.description));
-    console.log(taskObj.message_ids);
     a = _.map( taskObj.message_ids, function(m){return m});
     bodyoftask.append(getTableTW(taskObj), messagesPlaceholder);
     allElements.addClass("accordion-group"); 
