@@ -204,7 +204,8 @@ function getTableTW(taskObj){
         Url = localStorage['server']+'/xmlrpc/object'
         Db = localStorage['dbname'],
         Passwd = localStorage['passwd'],
-        forcedFields = $.xmlrpc.force('array', ['id', 'name'])
+        forcedFields = $.xmlrpc.force('array',
+                       ['id', 'name', 'user_id', 'date', 'hours'])
 
     $.xmlrpc({
         url: Url,
@@ -229,7 +230,7 @@ function getTableTW(taskObj){
                           forcedFields],
                 success: function(response, status, jqXHR) {
                     var elements = _.map(response[0], function(e){
-                        content = $("<tbody><tr><td>"+e.id+"</td><td>"+e.name+"</td><td>10/12/2013 10:10:11</td><td>28</td></tr></tbody>");
+                        content = $("<tbody><tr><td>"+e.id+"</td><td>"+e.name+"</td><td>"+e.date+"</td><td>"+e.hours+"</td></tr></tbody>");
                         tableTW.append(content);
                         return e;
                     });
