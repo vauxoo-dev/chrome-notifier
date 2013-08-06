@@ -197,8 +197,52 @@ function getTableTW(taskObj){
         tableCaption = $('<caption><h5>Task Works</h5></caption>')
     tableTW.addClass('table table-condensed table-striped table-bordered');
     tableTW.append("<thead><tr><th>Id</th><th>Details</th><th>Time</th><th>RevId</th></tr></thead>");
-    content = $("<tbody><tr><td>5</td><td>I did Something</td><td>10/12/2013 10:10:11</td><td>28</td></tr></tbody>");
-    tableTW.append(content);
+    //Searching TW ids and reading them.
+    //var forcedIds = $.xmlrpc.force('array', ids)
+    var forcedUid = $.xmlrpc.force('int', localStorage['uid']),
+        forcedDomain = $.xmlrpc.force('array', [['task_id', '=', taskObj.id]]),
+        Url = localStorage['server']+'/xmlrpc/object'
+        Db = localStorage['dbname'],
+        Passwd = localStorage['passwd'],
+        forcedFields = $.xmlrpc.force('array', ['id', 'name'])
+
+    $.xmlrpc({
+        url: Url,
+        methodName: 'execute',
+        params: [ Db,
+                  forcedUid,
+                  Passwd,
+                  'project.task.work',
+                  'search',
+                  forcedDomain],
+        success: function(response, status, jqXHR) {
+            forcedIds = $.xmlrpc.force('array', response[0]),
+            $.xmlrpc({
+                url: Url,
+                methodName: 'execute',
+                params: [ Db,
+                          forcedUid,
+                          Passwd,
+                          'project.task.work',
+                          'read',
+                          forcedIds,
+                          forcedFields],
+                success: function(response, status, jqXHR) {
+                    var elements = _.map(response[0], function(e){
+                        content = $("<tbody><tr><td>"+e.id+"</td><td>"+e.name+"</td><td>10/12/2013 10:10:11</td><td>28</td></tr></tbody>");
+                        tableTW.append(content);
+                        return e;
+                    });
+                    console.log(content);
+                },
+                error: function(response, status, error) {
+                }
+            });
+        },
+        error: function(response, status, error) {
+        }
+    });
+    //////////////
     return tableTW
 }
 
