@@ -143,19 +143,50 @@ Openerp Methods
 
 function messageView(taskObj){
     var messageCont = $('<div class="media"></div>'),
-        imgCont = $('<a class="pull-left" href="#">').append($('<img>').attr({
-            'class': 'media-object',
-            'src': 'images/img64x64.png'
-        })),
-        messageText = $('<div class="media-body"><div>') 
-        messageTitle = $('<h4 class="media-heading"></h4>'),
-        messageContent = 'iCras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.',
-        messageTitleContent = 'Hola Mundo'
-        buttonsCont = actionButtonsMessage(taskObj).addClass('row span1');
-        return messageCont.append(imgCont,
-                                  messageText.append(buttonsCont,
-                                                     messageTitle.text(messageTitleContent),
-                                                     $('<p>').text(messageContent)))
+        forcedUid = $.xmlrpc.force('int', localStorage['uid']),
+        Url = localStorage['server']+'/xmlrpc/object'
+        Db = localStorage['dbname'],
+        Passwd = localStorage['passwd'],
+        forcedFields = $.xmlrpc.force('array',
+                       ['id', 'body', 'author_id', 'date',
+                        'to_read', 'email_from'])
+        forcedIds = $.xmlrpc.force('array', taskObj.message_ids),
+    $.xmlrpc({
+        url: Url,
+        methodName: 'execute',
+        params: [ Db,
+                  forcedUid,
+                  Passwd,
+                  'mail.message',
+                  'read',
+                  forcedIds,
+                  forcedFields],
+        success: function(response, status, jqXHR) {
+            var elements = _.map(response[0], function(e){
+                console.log($(e.body));
+                imgCont = $('<a>').attr({
+                    "class": "pull-left",
+                    "href": "#"
+                }).append($('<img>').attr({
+                    'class': 'media-object',
+                    'src': 'images/img64x64.png'
+                }));
+                messageText = $('<div class="media-body"><div>');
+                messageTitle = $('<h6 class="media-heading"></h6>');
+                messageContent = e.body;
+                messageTitleContent = 'Author: '+e.author_id[1];
+                buttonsCont = actionButtonsMessage(taskObj).addClass('row span1');
+                return messageCont.append(imgCont,
+                              messageText.append(buttonsCont,
+                                         messageTitle.text(messageTitleContent),
+                                         $('<p>').text(messageContent)))
+            });
+        },
+        error: function(response, status, error) {
+        }
+    });
+//////////
+    return messageCont
 }
 
 function taskView(taskObj) {
@@ -173,14 +204,13 @@ function taskView(taskObj) {
     messagesPlaceholder.attr({
         'class': 'messages'
     });
-    messagesPlaceholder.append(messageView);
+    messagesPlaceholder.append(messageView(taskObj));
     bodyoftask.css({'height': '0px'});
     heading.attr({
        'data-toggle': "collapse", 
        'data-parent': "#acordion2", 
        'href': "#collapse"+taskObj.id
     });
-    console.log(taskObj);
     var state = $('<span class="label">').text(taskObj.state);
 
     if (taskObj.state === 'draft'){ state.addClass('label-important'); }
@@ -194,6 +224,8 @@ function taskView(taskObj) {
     var buttonAct = actionButtons(taskObj);
     bodyoftask.prepend($('<div class="row-fluid"></div>').append(buttonAct));
     bodyoftask.append($('<p></p>').text(taskObj.description));
+    console.log(taskObj.message_ids);
+    a = _.map( taskObj.message_ids, function(m){return m});
     bodyoftask.append(getTableTW(taskObj), messagesPlaceholder);
     allElements.addClass("accordion-group"); 
     allElements.append(heading, bodyoftask);
@@ -201,10 +233,11 @@ function taskView(taskObj) {
 }
 
 function getTableTW(taskObj){
+    var containerGlobal = $('<div>');
     var tableTW = $('<table></table>'),
-        tableCaption = $('<caption><h5>Task Works</h5></caption>')
+        tableCaption = $('<div class="row-fluid span4"><h5 class="span3">Task Works</h5><i class="icon-plus"></i><i class="icon-minus"></i></div>')
     tableTW.addClass('table table-condensed table-striped table-bordered');
-    tableTW.append("<thead><tr><th>Id</th><th>Details</th><th>Time</th><th>RevId</th></tr></thead>");
+    tableTW.append("<thead><tr><th>Id</th><th>Details</th><th>Time</th><th>User</th></tr></thead>");
     //Searching TW ids and reading them.
     //var forcedIds = $.xmlrpc.force('array', ids)
     var forcedUid = $.xmlrpc.force('int', localStorage['uid']),
@@ -239,7 +272,7 @@ function getTableTW(taskObj){
                           forcedFields],
                 success: function(response, status, jqXHR) {
                     var elements = _.map(response[0], function(e){
-                        content = $("<tbody><tr><td>"+e.id+"</td><td>"+e.name+"</td><td>"+e.date+"</td><td>"+e.hours+"</td></tr></tbody>");
+                        content = $("<tbody><tr><td>"+e.id+"</td><td>"+e.name+"</td><td>"+e.date+"</td><td>"+e.user_id[1]+"</td></tr></tbody>");
                         tableTW.append(content);
                         return e;
                     });
@@ -252,7 +285,8 @@ function getTableTW(taskObj){
         }
     });
     //////////////
-    return tableTW
+    containerGlobal.append( tableCaption, tableTW )
+    return containerGlobal
 }
 
 function actionButtonsMessage (taskObj){
@@ -280,6 +314,9 @@ function actionButtonsMessage (taskObj){
 }
 
 function actAnswerTask(taskObj){
+}
+
+function actOpenOpenerp(taskObj){
 }
 
 function actFavoriteMessage(taskObj){
@@ -337,7 +374,7 @@ function oeReadTask(model, ids, fields, button){
         Passwd = localStorage['passwd'],
         forcedFields = $.xmlrpc.force('array',
                        ['id', 'name', 'user_id', 'description',
-                        'state', 'stage_id'])
+                        'state', 'stage_id', 'message_ids'])
         $("#"+button).button('loading');
         placeHolderAcc = $("#accordion2");
         placeHolderAcc.html('');
