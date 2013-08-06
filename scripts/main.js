@@ -94,7 +94,6 @@ function connect(){
             } else {
                 $('#dbFilledError').toggle();
                 $('#dbFilledError').html('<p>Error Login: '+user+'</p>');
-                console.log('Something is wrong with your credentials');
             }
             $('#signIn').button('reset');
         },
@@ -129,7 +128,7 @@ function getSettings(){
 
 document.addEventListener('DOMContentLoaded', function (){
     document.getElementById('loadMessages').addEventListener('click', function (){
-        res = oe_read('project.task',
+        res = oeReadTask('project.task',
                       [1,2,3],
                       ['name', 'description'],
                       this.id);
@@ -152,7 +151,6 @@ function messageView(taskObj){
         messageTitle = $('<h4 class="media-heading"></h4>'),
         messageContent = 'iCras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.',
         messageTitleContent = 'Hola Mundo'
-        console.log(imgCont);
         buttonsCont = actionButtonsMessage(taskObj).addClass('row span1');
         return messageCont.append(imgCont,
                                   messageText.append(buttonsCont,
@@ -182,8 +180,18 @@ function taskView(taskObj) {
        'data-parent': "#acordion2", 
        'href': "#collapse"+taskObj.id
     });
-    heading.append($('<i class="icon-chevron-right">'),$('<b>').text(taskObj.id+': '), taskObj.name)
-    buttonAct = actionButtons(taskObj),
+    console.log(taskObj);
+    var state = $('<span class="label">').text(taskObj.state);
+
+    if (taskObj.state === 'draft'){ state.addClass('label-important'); }
+    else if (taskObj.state === 'open') { state.addClass('label-success');}
+    else if (taskObj.state === 'done') {state.addClass('label-inverse'); }
+
+    heading.append(state,
+                   $('<i class="icon-chevron-right">'),
+                   $('<b>').text(taskObj.id+': '),
+                   taskObj.name);
+    var buttonAct = actionButtons(taskObj);
     bodyoftask.prepend($('<div class="row-fluid"></div>').append(buttonAct));
     bodyoftask.append($('<p></p>').text(taskObj.description));
     bodyoftask.append(getTableTW(taskObj), messagesPlaceholder);
@@ -205,7 +213,8 @@ function getTableTW(taskObj){
         Db = localStorage['dbname'],
         Passwd = localStorage['passwd'],
         forcedFields = $.xmlrpc.force('array',
-                       ['id', 'name', 'user_id', 'date', 'hours'])
+                       ['id', 'name', 'user_id', 'date',
+                        'hours'])
 
     $.xmlrpc({
         url: Url,
@@ -271,11 +280,9 @@ function actionButtonsMessage (taskObj){
 }
 
 function actAnswerTask(taskObj){
-    console.log('Answer MEssage on TAsk');
 }
 
 function actFavoriteMessage(taskObj){
-    console.log('Answer Favorite Message');
 }
 
 function actionButtons (taskObj){
@@ -309,26 +316,18 @@ function actionButtons (taskObj){
 //in only the specific element.
 
 function actSendMessage(el){
-    console.log('Send MEssage');
-    console.log(el.parent().attr('data-resid'));
 }
 
 function actLoadMessages(el){
-    console.log('Load Messages');
-    console.log(el.parent().attr('data-resid'));
 }
 
 function actLoadTW(el){
-    console.log('Load TW');
-    console.log(el.parent().attr('data-resid'));
 }
 
 function actRefreshTask(el){
-    console.log('Refreshi Tasks');
-    console.log(el.parent().attr('data-resid'));
 }
 
-function oe_read(model, ids, fields, button){
+function oeReadTask(model, ids, fields, button){
     //Searching TW ids and reading them.
     //var forcedIds = $.xmlrpc.force('array', ids)
     var forcedUid = $.xmlrpc.force('int', localStorage['uid']),
@@ -337,11 +336,11 @@ function oe_read(model, ids, fields, button){
         Db = localStorage['dbname'],
         Passwd = localStorage['passwd'],
         forcedFields = $.xmlrpc.force('array',
-                       ['id', 'name', 'user_id', 'description'])
+                       ['id', 'name', 'user_id', 'description',
+                        'state', 'stage_id'])
         $("#"+button).button('loading');
         placeHolderAcc = $("#accordion2");
         placeHolderAcc.html('');
-        console.log(forcedDomain);
     $.xmlrpc({
         url: Url,
         methodName: 'execute',
@@ -352,7 +351,6 @@ function oe_read(model, ids, fields, button){
                   'search',
                   forcedDomain],
         success: function(response, status, jqXHR) {
-            console.log('entre'+ response);
             forcedIds = $.xmlrpc.force('array', response[0]),
             $.xmlrpc({
                 url: Url,
