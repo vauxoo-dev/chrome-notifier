@@ -211,11 +211,19 @@ function actionButtonsMessage (taskObj){
 
         // Setting Actions.
 
-        answerTask.click(function(){ actRefreshTask($(this)) });
-        favoriteMessage.click(function(){ actRefreshTask($(this)) });
+        answerTask.click(function(){ actAnswerTask($(this)) });
+        favoriteMessage.click(function(){ actFavoriteMessage($(this)) });
     res = btnGroup.append(aToggle,
                           buttonContainer.append(answerTask, favoriteMessage));
     return res
+}
+
+function actAnswerTask(taskObj){
+    console.log('Answer MEssage on TAsk');
+}
+
+function actFavoriteMessage(taskObj){
+    console.log('Answer Favorite Message');
 }
 
 function actionButtons (taskObj){
