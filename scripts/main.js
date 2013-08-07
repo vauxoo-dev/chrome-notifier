@@ -326,15 +326,6 @@ function actionButtonsMessage (taskObj){
     return res
 }
 
-function actAnswerTask(taskObj){
-}
-
-function actOpenOpenerp(taskObj){
-}
-
-function actFavoriteMessage(taskObj){
-}
-
 function actionButtons (taskObj){
     var btnGroup=$("<div class='btn-group span4'></div>"),
         aToggle=$('<a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#"></a>'),
@@ -360,21 +351,6 @@ function actionButtons (taskObj){
         loadTW.click(function(){ actLoadMessages($(this)) });
     res = btnGroup.append(aToggle, buttonContainer.append(refreshTask, sendMessage, loadTW, loadMessages));
     return res 
-}
-
-//TODO: Every action using the data-resid will execute the process using Ajax
-//in only the specific element.
-
-function actSendMessage(el){
-}
-
-function actLoadMessages(el){
-}
-
-function actLoadTW(el){
-}
-
-function actRefreshTask(el){
 }
 
 function oeReadTask(model, ids, fields, button){
@@ -428,5 +404,29 @@ function oeReadTask(model, ids, fields, button){
             $("#"+button).button('reset');
         }
     });
-    //////////////
 }
+
+//TODO: Every action using the data-resid will execute the process using Ajax
+//in only the specific element.
+
+function actSendMessage(el){
+}
+
+function actLoadMessages(el){
+}
+
+function actLoadTW(el){
+}
+
+function actRefreshTask(el){
+}
+
+function actAnswerTask(taskObj){
+}
+
+function actOpenOpenerp(taskObj){
+}
+
+function actFavoriteMessage(taskObj){
+}
+
