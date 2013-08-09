@@ -65,18 +65,11 @@ input{
     padding: 5px 6px;
 }
 p{
-    border-collapse: collapse;
-    border-spacing: 0px;
-    font-size: 14px;
-    color: #eeeeee;
-    text-align: -webkit-match-parent;
-    display: list-item;
-    padding: 0 0 4px 0;
-    list-style-type: none;
-    margin: 0;
-    border-spacing: 2px;
-    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
-    border-color: gray;
+    color: #4c4c4c;
+    font-weight: light;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
     font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
 }
 /*
@@ -386,5 +379,10 @@ a {
 .oex_ribbon_rmv {
     position: absolute;
     top: 5px;
+    right: 5px;
+}
+.oex_message_actions {
+    position: absolute;
+    bottom: 5px;
     right: 5px;
 }

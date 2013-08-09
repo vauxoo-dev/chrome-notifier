@@ -237,13 +237,13 @@ function taskView(taskObj) {
 
     heading.append( $('<i class="icon-chevron-right">'),
                    $('<b>').text(taskObj.id+': '),
-                   state,
-                   stage,
-                   $('<br>'),
-                   taskObj.name);
+                   taskObj.name, 
+                   $('<b>').text('  '),
+                   state, 
+                   stage);
     var buttonAct = actionButtons(taskObj);
     bodyoftask.prepend($('<div class="row-fluid"></div>').append(buttonAct));
-    bodyoftask.append($('<p></p>').text(taskObj.description));
+    bodyoftask.append($('<p class="oex_text"></p>').text(taskObj.description));
     a = _.map( taskObj.message_ids, function(m){return m});
     bodyoftask.append(getTableTW(taskObj), messagesPlaceholder);
     allElements.addClass("accordion-group"); 
