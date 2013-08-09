@@ -376,3 +376,15 @@ a {
     overflow: hidden;
     padding: 0px;
 }
+
+.oex_ribbon_add {
+    position: absolute;
+    top: 5px;
+    right: 20px;
+}
+    
+.oex_ribbon_rmv {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}

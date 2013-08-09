@@ -254,8 +254,11 @@ function taskView(taskObj) {
 
 function getTableTW(taskObj){
     var containerGlobal = $('<div>');
+    var iconPlus = ('<i class="icon-plus oex_ribbon_add"></i>');
+    var iconMinus = ('<i class="icon-minus oex_ribbon_rmv"></i>');
     var tableTW = $('<table></table>'),
-        tableCaption = $('<div class="row-fluid span4"><h5 class="span3">Task Works</h5><i class="icon-plus"></i><i class="icon-minus"></i></div>')
+        tableCaption = $('<div class="row-fluid span4"><h5 class="span3">Task Works</h5></div>')
+    tableCaption.append(iconPlus,iconMinus);
     containerGlobal.addClass('oex_card');
     tableTW.addClass('table table-condensed table-striped table-bordered');
     tableTW.append("<thead><tr><th>Id</th><th>Details</th><th>Time</th><th>User</th></tr></thead>");
