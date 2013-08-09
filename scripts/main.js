@@ -338,10 +338,10 @@ function actionButtons (taskObj){
         });
     aToggle.text('Actions');
     aToggle.prepend(spanSpace);
-    var refreshTask = $('<li><i class="icon-arrow-down"></i>Refresh</li>'), 
-        sendMessage = $('<li><i class="icon-pencil"></i>Send Msg</li>'), 
-        loadMessages = $('<li><i class="icon-envelope"></i>>Messages</li>'),
-        loadTW = $('<li><i class="icon-info-sign"></i>Reload</li>')
+    var refreshTask = $('<li><i class="icon-arrow-down"></i> Refresh</li>'), 
+        sendMessage = $('<li><i class="icon-pencil"></i> Send Msg</li>'), 
+        loadMessages = $('<li><i class="icon-envelope"></i> Messages</li>'),
+        loadTW = $('<li><i class="icon-info-sign"></i> Reload</li>')
 
         //Setting actions
  
