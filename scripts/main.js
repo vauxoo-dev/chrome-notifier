@@ -214,6 +214,7 @@ function taskView(taskObj) {
         allElements = $('<div></div>')
 
     heading.addClass('accordion-heading');
+    heading.addClass('oex_openerp_bold_messages');
     bodyoftask.addClass('accordion-body collapse');
     bodyoftask.attr({
         'id': 'collapse'+taskObj.id
