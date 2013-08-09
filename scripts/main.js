@@ -183,14 +183,18 @@ function messageView(taskObj){
                     }); 
                 }
                 messageText = $('<div class="media-body"><div>');
+                imgDiv = $('<div><div>');
+                imgDiv.addClass('oex_ribbon_image');
+                imgDiv.append(imgCont);
                 messageText.addClass('oex_div_message');
                 messageTitle = $('<h6 class="media-heading"></h6>');
                 messageContent = $('<div class="body">').html(e.body);
                 messageTitleContent = 'Author: '+e.author_id[1];
                 buttonsCont = actionButtonsMessage(taskObj).addClass('row span1');
                 messageCont.addClass('oex_card');
-                return messageCont.append(imgCont,
-                              messageText.append(buttonsCont,
+                return messageCont.append(
+                              messageText.append(imgDiv,
+                                         buttonsCont,
                                          messageTitle.text(messageTitleContent),
                                          messageContent))
             });

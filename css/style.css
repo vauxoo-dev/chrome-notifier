@@ -359,3 +359,20 @@ a {
     border-spacing: 0px;
     text-align: left;
 }
+.oex_ribbon_image {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    -webkit-box-shadow: 0px 0px 10px #4d4d4d;
+    -moz-box-shadow: 0px 0px 10px #4d4d4d;
+    box-shadow: 0px 0px 10px #4d4d4d;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -khtml-border-radius: 4px;  
+    border-radius: 4px;
+    border:solid white 0px;
+    overflow: hidden;
+    padding: 0px;
+}
