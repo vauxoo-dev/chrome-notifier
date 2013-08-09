@@ -183,10 +183,12 @@ function messageView(taskObj){
                     }); 
                 }
                 messageText = $('<div class="media-body"><div>');
+                messageText.addClass('oex_div_message');
                 messageTitle = $('<h6 class="media-heading"></h6>');
                 messageContent = $('<div class="body">').html(e.body);
                 messageTitleContent = 'Author: '+e.author_id[1];
                 buttonsCont = actionButtonsMessage(taskObj).addClass('row span1');
+                messageCont.addClass('oex_card');
                 return messageCont.append(imgCont,
                               messageText.append(buttonsCont,
                                          messageTitle.text(messageTitleContent),
@@ -241,6 +243,7 @@ function taskView(taskObj) {
     a = _.map( taskObj.message_ids, function(m){return m});
     bodyoftask.append(getTableTW(taskObj), messagesPlaceholder);
     allElements.addClass("accordion-group"); 
+    allElements.addClass("oex_card"); 
     allElements.append(heading, bodyoftask);
     return allElements
 }
@@ -249,6 +252,7 @@ function getTableTW(taskObj){
     var containerGlobal = $('<div>');
     var tableTW = $('<table></table>'),
         tableCaption = $('<div class="row-fluid span4"><h5 class="span3">Task Works</h5><i class="icon-plus"></i><i class="icon-minus"></i></div>')
+    containerGlobal.addClass('oex_card');
     tableTW.addClass('table table-condensed table-striped table-bordered');
     tableTW.append("<thead><tr><th>Id</th><th>Details</th><th>Time</th><th>User</th></tr></thead>");
     //Searching TW ids and reading them.
@@ -314,8 +318,8 @@ function actionButtonsMessage (taskObj){
         });
     aToggle.text('Actions');
     aToggle.prepend(spanSpace);
-    var answerTask = $('<li><i class="icon-share-alt"></i>Reply</li>'), 
-        favoriteMessage = $('<li><i class="icon-star-empty"></i>Fav Msg</li>') 
+    var answerTask = $('<li><i class="icon-share-alt"></i> Reply</li>'), 
+        favoriteMessage = $('<li><i class="icon-star-empty"></i> Fav Msg</li>') 
 
         // Setting Actions.
 
