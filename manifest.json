@@ -1,28 +1,18 @@
 {
-  "manifest_version": 2,
   "name": "OpenERP Notifications",
-  "description": "This extension shows number of notifications that certain user has on OpenERP",
-  "version": "1.0",
-  "browser_action": {
-    "default_icon": "images/icon.png",
-    "default_popup": "main.html"
-  },
-  "permissions": [
-    "storage",
-    "<all_urls>",
-    "tabs",
-    "notifications"
-  ],
-  "content_scripts":[
+  "description": "This extension allows the user to get notifications about tasks OpenERP",
+  "version": "0.1",
+  "app":
   {
-  "matches": ["<all_urls>"],
-  "js": [
+    "background":{
+  "scripts": [
+         "scripts/background.js",
          "scripts/jquery-2.0.3.min.js",
          "scripts/jquery.xmlrpc.js",
          "scripts/underscore-min.js",
-         "scripts/backbone-min.js",
-         "scripts/main.js"
+         "scripts/backbone-min.js"
          ]
-  }
-  ]
+    }
+  },
+  "icons": {"16": "images/icon.png","128": "images/icon.png"}
 }
