@@ -207,7 +207,7 @@ function messageView(taskObj){
                     messageContent = $('<div class="body">').html(e.body);
                     messageTitleContent = 'Author: '+e.author_id[1];
                     buttonsCont = actionButtonsMessage(taskObj).addClass('row span1');
-                    messageCont.addClass('oex_card');
+                    messageCont.addClass('oex_card_noglow');
                     return messageCont.append(
                                   messageText.append(imgDiv,
                                              buttonsCont,
@@ -277,7 +277,7 @@ function getTableTW(taskObj){
     var tableTW = $('<table></table>'),
         tableCaption = $('<div class="row-fluid span4"><h5 class="span3">Task Works</h5></div>')
     tableCaption.append(iconPlus,iconMinus);
-    containerGlobal.addClass('oex_card');
+    containerGlobal.addClass('oex_card_noglow');
     tableTW.addClass('table table-condensed table-striped table-bordered');
     tableTW.append("<thead><tr><th>Id</th><th>Details</th><th>Time</th><th>User</th></tr></thead>");
     //Searching TW ids and reading them.
