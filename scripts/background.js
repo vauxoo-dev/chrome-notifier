@@ -282,49 +282,51 @@ function getTableTW(taskObj){
     tableTW.append("<thead><tr><th>Id</th><th>Details</th><th>Time</th><th>User</th></tr></thead>");
     //Searching TW ids and reading them.
     //var forcedIds = $.xmlrpc.force('array', ids)
-    var forcedUid = $.xmlrpc.force('int', chrome.storage.local['uid']),
-        forcedDomain = $.xmlrpc.force('array', [['task_id', '=', taskObj.id]]),
-        Url = chrome.storage.local['server']+'/xmlrpc/object'
-        Db = chrome.storage.local['dbname'],
-        Passwd = chrome.storage.local['passwd'],
-        forcedFields = $.xmlrpc.force('array',
-                       ['id', 'name', 'user_id', 'date',
-                        'hours'])
+    chrome.storage.local.get(['user','dbname','passwd','server','uid'], function(vals){
+        var forcedUid = $.xmlrpc.force('int', vals.uid),
+            forcedDomain = $.xmlrpc.force('array', [['task_id', '=', taskObj.id]]),
+            Url = vals.server+'/xmlrpc/object'
+            Db = vals.dbname,
+            Passwd = vals.passwd,
+            forcedFields = $.xmlrpc.force('array',
+                           ['id', 'name', 'user_id', 'date',
+                            'hours'])
 
-    $.xmlrpc({
-        url: Url,
-        methodName: 'execute',
-        params: [ Db,
-                  forcedUid,
-                  Passwd,
-                  'project.task.work',
-                  'search',
-                  forcedDomain],
-        success: function(response, status, jqXHR) {
-            forcedIds = $.xmlrpc.force('array', response[0]),
-            $.xmlrpc({
-                url: Url,
-                methodName: 'execute',
-                params: [ Db,
-                          forcedUid,
-                          Passwd,
-                          'project.task.work',
-                          'read',
-                          forcedIds,
-                          forcedFields],
-                success: function(response, status, jqXHR) {
-                    var elements = _.map(response[0], function(e){
-                        content = $("<tbody><tr><td>"+e.id+"</td><td>"+e.name+"</td><td>"+e.date+"</td><td>"+e.user_id[1]+"</td></tr></tbody>");
-                        tableTW.append(content);
-                        return e;
-                    });
-                },
-                error: function(response, status, error) {
-                }
-            });
-        },
-        error: function(response, status, error) {
-        }
+        $.xmlrpc({
+            url: Url,
+            methodName: 'execute',
+            params: [ Db,
+                      forcedUid,
+                      Passwd,
+                      'project.task.work',
+                      'search',
+                      forcedDomain],
+            success: function(response, status, jqXHR) {
+                forcedIds = $.xmlrpc.force('array', response[0]),
+                $.xmlrpc({
+                    url: Url,
+                    methodName: 'execute',
+                    params: [ Db,
+                              forcedUid,
+                              Passwd,
+                              'project.task.work',
+                              'read',
+                              forcedIds,
+                              forcedFields],
+                    success: function(response, status, jqXHR) {
+                        var elements = _.map(response[0], function(e){
+                            content = $("<tbody><tr><td>"+e.id+"</td><td>"+e.name+"</td><td>"+e.date+"</td><td>"+e.user_id[1]+"</td></tr></tbody>");
+                            tableTW.append(content);
+                            return e;
+                        });
+                    },
+                    error: function(response, status, error) {
+                    }
+                });
+            },
+            error: function(response, status, error) {
+            }
+        });
     });
     //////////////
     containerGlobal.append( tableCaption, tableTW )
