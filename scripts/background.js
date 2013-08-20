@@ -278,7 +278,7 @@ function getTableTW(taskObj){
         tableCaption = $('<div class="row-fluid span4"><h5 class="span3">Task Works</h5></div>')
     tableCaption.append(iconPlus,iconMinus);
     containerGlobal.addClass('oex_card_noglow');
-    tableTW.addClass('table table-condensed table-striped table-bordered');
+    tableTW.addClass('table table-striped');
     tableTW.append("<thead><tr><th>Id</th><th>Details</th><th>Time</th><th>User</th></tr></thead>");
     //Searching TW ids and reading them.
     //var forcedIds = $.xmlrpc.force('array', ids)
