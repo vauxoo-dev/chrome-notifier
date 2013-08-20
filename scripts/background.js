@@ -162,59 +162,62 @@ function getImgAvatar(){
 }
 
 function messageView(taskObj){
-    var messageCont = $('<div class="media"></div>'),
-        forcedUid = $.xmlrpc.force('int', chrome.storage.local['uid']),
-        Url = chrome.storage.local['server']+'/xmlrpc/object'
-        Db = chrome.storage.local['dbname'],
-        Passwd = chrome.storage.local['passwd'],
-        forcedFields = $.xmlrpc.force('array',
-                       ['id', 'body', 'author_id', 'date',
-                        'to_read', 'email_from'])
-        forcedIds = $.xmlrpc.force('array', taskObj.message_ids),
-    $.xmlrpc({
-        url: Url,
-        methodName: 'execute',
-        params: [ Db,
-                  forcedUid,
-                  Passwd,
-                  'mail.message',
-                  'read',
-                  forcedIds,
-                  forcedFields],
-        success: function(response, status, jqXHR) {
-            var elements = _.map(response[0], function(e){
-                    imgCont = $('<a>').attr({
-                        "class": "pull-left",
-                        "href": "#"
-                    }).append($('<img>').attr({
-                        'class': 'media-object',
-                        'src': 'images/fromFile.jpg'
-                    }));
-                console.log(chrome.storage.local['use_avatar']);
-                if (chrome.storage.local['use_avatar'] === 'true'){
-                    imgCont.children().attr({
-                        'src': getImgAvatar(e.id)
-                    }); 
-                }
-                messageText = $('<div class="media-body"><div>');
-                imgDiv = $('<div><div>');
-                imgDiv.addClass('oex_ribbon_image');
-                imgDiv.append(imgCont);
-                messageText.addClass('oex_div_message');
-                messageTitle = $('<h6 class="media-heading"></h6>');
-                messageContent = $('<div class="body">').html(e.body);
-                messageTitleContent = 'Author: '+e.author_id[1];
-                buttonsCont = actionButtonsMessage(taskObj).addClass('row span1');
-                messageCont.addClass('oex_card');
-                return messageCont.append(
-                              messageText.append(imgDiv,
-                                         buttonsCont,
-                                         messageTitle.text(messageTitleContent),
-                                         messageContent))
-            });
-        },
-        error: function(response, status, error) {
-        }
+
+    var messageCont = $('<div class="media"></div>')
+    chrome.storage.local.get(['user','dbname','passwd','server','uid'], function(vals){
+        var forcedUid = $.xmlrpc.force('int', vals.uid),
+            Url = vals.server+'/xmlrpc/object'
+            Db = vals.dbname,
+            Passwd = vals.passwd,
+            forcedFields = $.xmlrpc.force('array',
+                           ['id', 'body', 'author_id', 'date',
+                            'to_read', 'email_from'])
+            forcedIds = $.xmlrpc.force('array', taskObj.message_ids),
+        $.xmlrpc({
+            url: Url,
+            methodName: 'execute',
+            params: [ Db,
+                      forcedUid,
+                      Passwd,
+                      'mail.message',
+                      'read',
+                      forcedIds,
+                      forcedFields],
+            success: function(response, status, jqXHR) {
+                var elements = _.map(response[0], function(e){
+                        imgCont = $('<a>').attr({
+                            "class": "pull-left",
+                            "href": "#"
+                        }).append($('<img>').attr({
+                            'class': 'media-object',
+                            'src': 'images/fromFile.jpg'
+                        }));
+                    console.log(chrome.storage.local['use_avatar']);
+                    if (chrome.storage.local['use_avatar'] === 'true'){
+                        imgCont.children().attr({
+                            'src': getImgAvatar(e.id)
+                        }); 
+                    }
+                    messageText = $('<div class="media-body"><div>');
+                    imgDiv = $('<div><div>');
+                    imgDiv.addClass('oex_ribbon_image');
+                    imgDiv.append(imgCont);
+                    messageText.addClass('oex_div_message');
+                    messageTitle = $('<h6 class="media-heading"></h6>');
+                    messageContent = $('<div class="body">').html(e.body);
+                    messageTitleContent = 'Author: '+e.author_id[1];
+                    buttonsCont = actionButtonsMessage(taskObj).addClass('row span1');
+                    messageCont.addClass('oex_card');
+                    return messageCont.append(
+                                  messageText.append(imgDiv,
+                                             buttonsCont,
+                                             messageTitle.text(messageTitleContent),
+                                             messageContent))
+                });
+            },
+            error: function(response, status, error) {
+            }
+        });
     });
 //////////
     return messageCont
