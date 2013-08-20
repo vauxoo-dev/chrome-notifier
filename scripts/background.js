@@ -5,8 +5,12 @@ chrome.app.runtime.onLaunched.addListener(function(){
             'height': 650
         }
     })
+});
+
+$(document).ready(function(){
     fillListDb();
     connect();
+    console.log('launched');
 });
 
 document.addEventListener('DOMContentLoaded', function (){
@@ -45,9 +49,11 @@ function fillListDb(){
         if (!val.server){
             var server = document.getElementById('hostInputButton').value;
             chrome.storage.local.set({'server':server});
+            console.log('no server');
         } else { 
             document.getElementById('hostInputButton').value = val.server;
             var server = val.server;
+            console.log('server');
         }
         $('#buttonDb').button('loading');
         $.xmlrpc({
