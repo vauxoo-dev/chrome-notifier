@@ -70,20 +70,18 @@ p{
     border-radius: 4px;
     font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
 }
-/*
+
 #oex_timeline {
-    shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
     padding: 0;
     display: block;
     width: 440px;
     background: #f0eeee;
     border-left: 1px solid #f0f8f8;
     border-right: 1px solid #b9b9b9;
-    
     margin: 0;
-    overflow-x: hidden;
+    overflow: scroll;
 }
-*/
+
 #logo {
     z-index:100;
     cursor:pointer;
