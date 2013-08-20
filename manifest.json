@@ -7,10 +7,7 @@
     "background":{
   "scripts": [
          "scripts/background.js",
-         "scripts/jquery-2.0.3.min.js",
-         "scripts/jquery.xmlrpc.js",
-         "scripts/underscore-min.js",
-         "scripts/backbone-min.js"
+         "scripts/jquery.xmlrpc.js"
          ]
     }
   },

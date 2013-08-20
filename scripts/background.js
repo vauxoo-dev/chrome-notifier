@@ -123,11 +123,7 @@ function setSettings(){
 }
 
 function clearSettings(){
-    delete chrome.storage.local['dbname'];
-    delete chrome.storage.local['server'];
-    delete chrome.storage.local['user'];
-    delete chrome.storage.local['passwd'];
-    delete chrome.storage.local['use_avatar'];
+    chrome.storage.local.remove(['dbname','server','user','passwd','use_avatar']);
         $('#signIn').button('reset');
         $('#buttonDb').button('reset');
 }
