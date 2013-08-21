@@ -44,13 +44,13 @@ document.addEventListener('DOMContentLoaded', function (){
 });
 
 function fillListDb(){
-    chrome.storage.local.get('server', function(val) {
-        if (!val.server){
+    chrome.storage.local.get('server', function(vals) {
+        if (!vals.server){
             var server = document.getElementById('hostInputButton').value;
             chrome.storage.local.set({'server':server});
         } else { 
-            document.getElementById('hostInputButton').value = val.server;
-            var server = val.server;
+            document.getElementById('hostInputButton').value = vals.server;
+            var server = vals.server;
         }
         $('#buttonDb').button('loading');
         $.xmlrpc({
@@ -149,9 +149,7 @@ document.addEventListener('DOMContentLoaded', function (){
 });
 
 /*
-
 Openerp Methods
-
 */
 
 function getImgAvatar(){
