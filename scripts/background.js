@@ -269,18 +269,25 @@ function getTableTW(taskObj){
     var iconPlus = ('<i class="icon-plus oex_ribbon_add"></i>');
     var iconMinus = ('<i class="icon-minus oex_ribbon_rmv"></i>');
     var tableTbody = $('<tbody></tbody>');
-    var newName = ('<a href="#" class="newname editable editable-pre-wrapped editable-click editable-empty editable-open" data-type="textarea" data-name="name" data-original-title="Enter descriprion">New Taskwork</a>');
+    var newName = $('<a href="#" class="newname editable editable-pre-wrapped editable-click editable-empty editable-open" data-type="textarea" data-name="name" data-original-title="Enter descriprion">New Taskwork</a>');
     var tableTW = $('<table></table>'),
         tableCaption = $('<div class="row-fluid span4"><h5 class="span3">Task Works</h5></div>')
     tableCaption.append(iconPlus,iconMinus);
     containerGlobal.addClass('oex_card_noglow');
     tableTW.addClass('table table-condensed table-striped');
     tableTW.append("<thead><tr><th>Id</th><th>Details</th><th>Time</th><th>User</th></tr></thead>");
+
     //Searching TW ids and reading them.
     //var forcedIds = $.xmlrpc.force('array', ids)
     chrome.storage.local.get(['user','dbname','passwd','server','uid'], function(vals){
-    newRecord = $("<tr><td></td><td>"+newName+"</td><td></td><td>"+vals.uid+"</td></tr>");
+    newRecord = $("<tr><td></td><td class='newRecord'></td><td></td><td>"+vals.uid+"</td></tr>");
+    newName.appendTo(newRecord.find('td.newRecord'));
     tableTbody.append(newRecord);
+    $.fn.editable.defaults.mode = 'inline';
+    newName.editable({
+        url: '/post',
+        rows: 2
+    });
         var forcedUid = $.xmlrpc.force('int', vals.uid),
             forcedDomain = $.xmlrpc.force('array', [['task_id', '=', taskObj.id]]),
             Url = vals.server+'/xmlrpc/object'
@@ -289,6 +296,11 @@ function getTableTW(taskObj){
             forcedFields = $.xmlrpc.force('array',
                            ['id', 'name', 'user_id', 'date',
                             'hours'])
+        $('#collapse'+taskObj.id+' i.oex_ribbon_add').click(function(){
+            console.log(newName.editable()[0].firstChild.data);
+            console.log('Salvando......');
+
+        });
 
         $.xmlrpc({
             url: Url,
@@ -436,10 +448,6 @@ function oeReadTask(model, ids, fields, button){
             }
         });
     
-    });
-    $.fn.editable.defaults.mode = 'inline';
-    $('.newname').editable({
-        url: '/post'
     });
 }
 
