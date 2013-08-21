@@ -13,31 +13,31 @@ $(document).ready(function(){
 });
 
 document.addEventListener('DOMContentLoaded', function (){
-    document.getElementById('clearSettings').addEventListener('click', function (){
+    $('#clearSettings').on('click', function (){
         clearSettings();
     });
 });
 
 document.addEventListener('DOMContentLoaded', function (){
-    document.getElementById('setSettings').addEventListener('click', function (){
+    $('#setSettings').on('click', function (){
         setSettings();
     });
 });
 
 document.addEventListener('DOMContentLoaded', function (){
-    document.getElementById('useSettings').addEventListener('click', function (){
+    $('#useSettings').on('click', function (){
         getSettings();
     });
 });
 
 document.addEventListener('DOMContentLoaded', function (){
-    document.getElementById('buttonDb').addEventListener('click', function(){
+    $('#buttonDb').on('click', function(){
         fillListDb();
     });
 });
 
 document.addEventListener('DOMContentLoaded', function (){
-    document.getElementById('signIn').addEventListener('click', function (){
+    $('#signIn').on('click', function (){
         setSettings();
         connect();
     });
@@ -140,7 +140,7 @@ function getSettings(){
 }
 
 document.addEventListener('DOMContentLoaded', function (){
-    document.getElementById('loadMessages').addEventListener('click', function (){
+    $('#loadMessages').on('click', function (){
         res = oeReadTask('project.task',
                       [1,2,3],
                       ['name', 'description'],
@@ -324,7 +324,6 @@ function getTableTW(taskObj){
             }
         });
     });
-    //////////////
     containerGlobal.append( tableCaption, tableTW )
     return containerGlobal
 }

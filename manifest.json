@@ -6,6 +6,7 @@
   {
     "background":{
   "scripts": [
+         "scripts/jquery-2.0.3.min.js",
          "scripts/background.js",
          "scripts/jquery.xmlrpc.js"
          ]
