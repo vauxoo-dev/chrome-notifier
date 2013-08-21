@@ -46,10 +46,10 @@ document.addEventListener('DOMContentLoaded', function (){
 function fillListDb(){
     chrome.storage.local.get('server', function(vals) {
         if (!vals.server){
-            var server = document.getElementById('hostInputButton').value;
+            var server = $('#hostInputButton').val();
             chrome.storage.local.set({'server':server});
         } else { 
-            document.getElementById('hostInputButton').value = vals.server;
+            $('#hostInputButton').val(vals.server);
             var server = vals.server;
         }
         $('#buttonDb').button('loading');
