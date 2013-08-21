@@ -133,9 +133,9 @@ function clearSettings(){
 
 function getSettings(){
     chrome.storage.local.get('dbname', function(valdb){
-        document.getElementById('hostInputButton').value = valdb.server;
-        document.getElementById('inputUser').value = valdb.user;
-        document.getElementById('inputPassword').value = valdb.passwd;
+        $('#hostInputButton').val(valdb.server);
+        $('#inputUser').val(valdb.user);
+        $('#inputPassword').val(valdb.passwd);
     });
 }
 
