@@ -268,11 +268,12 @@ function getTableTW(taskObj){
     var containerGlobal = $('<div>');
     var iconPlus = ('<i class="icon-plus oex_ribbon_add"></i>');
     var iconMinus = ('<i class="icon-minus oex_ribbon_rmv"></i>');
+    var tableTbody = $('<tbody></tbody>');
     var tableTW = $('<table></table>'),
         tableCaption = $('<div class="row-fluid span4"><h5 class="span3">Task Works</h5></div>')
     tableCaption.append(iconPlus,iconMinus);
     containerGlobal.addClass('oex_card_noglow');
-    tableTW.addClass('table table-striped');
+    tableTW.addClass('table table-condensed');
     tableTW.append("<thead><tr><th>Id</th><th>Details</th><th>Time</th><th>User</th></tr></thead>");
     //Searching TW ids and reading them.
     //var forcedIds = $.xmlrpc.force('array', ids)
@@ -309,8 +310,9 @@ function getTableTW(taskObj){
                               forcedFields],
                     success: function(response, status, jqXHR) {
                         var elements = _.map(response[0], function(e){
-                            content = $("<tbody><tr><td>"+e.id+"</td><td>"+e.name+"</td><td>"+e.date+"</td><td>"+e.user_id[1]+"</td></tr></tbody>");
-                            tableTW.append(content);
+                            content = $("<tr><td>"+e.id+"</td><td>"+e.name+"</td><td>"+e.date+"</td><td>"+e.user_id[1]+"</td></tr>");
+                            tableTbody.append(content);
+                            tableTW.append(tableTbody);
                             return e;
                         });
                     },
