@@ -81,7 +81,7 @@ function fillListDb(){
                 $('#dbFilledSuccess').toggle();
             },
             error: function(jqXHR, status, error) {
-                document.getElementById('hostInputButton').value = ''; 
+                $('#hostInputButton').val(''); 
                 $('.alert').hide();
                 $('#dbFilledError').toggle();
                 $('#buttonDb').button('reset');
@@ -118,9 +118,9 @@ function setSettings(){
     var e = document.getElementById("selectDatabase");
     dict = {}
     dict['dbname'] = e.options[e.selectedIndex].text;
-    dict['server'] = document.getElementById('hostInputButton').value;
-    dict['user'] = document.getElementById('inputUser').value;
-    dict['passwd'] = document.getElementById('inputPassword').value;
+    dict['server'] = $('#hostInputButton').val();
+    dict['user'] = $('#inputUser').val();
+    dict['passwd'] = $('#inputPassword').val();
     dict['use_avatar'] = document.getElementById('inputAvatar').checked;
     chrome.storage.local.set(dict);
 }
